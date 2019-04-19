@@ -1,0 +1,16 @@
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+Library
+Temp
+svn
+Logs
+.vs
+*.pidb
+*.unityproj
+*.sln
+*.userprefs
+*.csproj
+*.svn
+*.suo
+.gradle
