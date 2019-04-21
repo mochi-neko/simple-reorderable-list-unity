@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-//using UnityEditorInternal;
 
 namespace Mochineko.ReorderableList
 {
@@ -37,18 +36,24 @@ namespace Mochineko.ReorderableList
 		#endregion
 
 		public ReorderableListLayouter(
-			SerializedProperty listProperty, bool custom = false,
+			SerializedProperty listProperty,
+			bool customOwn = false,
 			bool draggable = true, bool displayHeader = true, bool displayAddButton = true, bool displayRemoveButton = true)
 		{
-			native = new UnityEditorInternal.ReorderableList(
-				listProperty.serializedObject, listProperty,
-				draggable, displayHeader, displayAddButton, displayRemoveButton);
+			if (listProperty == null)
+				throw new System.ArgumentNullException("listProperty");
 
 			this.listProperty = listProperty;
 
-			if (custom)
+			native = new UnityEditorInternal.ReorderableList(
+				listProperty.serializedObject, listProperty,
+				draggable, displayHeader, displayAddButton, displayRemoveButton
+			);
+
+			if (customOwn)
 				return;
 
+			// default layouts
 			AddDrawHeader();
 			AddDrawElementProperty();
 			AddDrawElementBackground();
@@ -105,14 +110,14 @@ namespace Mochineko.ReorderableList
 			if (native == null)
 				return;
 
-			native.drawElementCallback += LayoutProperty;
+			native.drawElementCallback += DrawProperty;
 			native.elementHeightCallback += ElementHeight;
 		}
 
-		private void LayoutProperty(Rect rect, int index, bool isActive, bool isFocused)
-			=> LayoutProperty(GetListElement(index), index, rect);
+		protected virtual void DrawProperty(Rect rect, int index, bool isActive, bool isFocused)
+			=> DrawProperty(GetListElement(index), index, rect);
 
-		private void LayoutProperty(SerializedProperty property, int elementIndex, Rect rect)
+		protected virtual void DrawProperty(SerializedProperty property, int elementIndex, Rect rect)
 		{
 			if (property == null)
 				return;
@@ -120,7 +125,7 @@ namespace Mochineko.ReorderableList
 			EditorGUI.PropertyField(rect, property, true);
 		}
 
-		private float ElementHeight(int index)
+		protected virtual float ElementHeight(int index)
 		{
 			var element = GetListElement(index);
 
@@ -146,17 +151,16 @@ namespace Mochineko.ReorderableList
 					=> DrawElementBackgroundAlternatively(rect, index, isActive, isFocused);
 		}
 
-		private void DrawElementBackgroundAlternatively(Rect rect, int index, bool isActive, bool isFocused)
+		protected virtual void DrawElementBackgroundAlternatively(Rect rect, int index, bool isActive, bool isFocused)
 		{
-			// isActive = true => last selected item
-			// isfocused = true => current selected item
-
+			// current selected
 			if (isFocused)
 			{
 				rect.DrawColor(EditorColorUtility.EffectiveActiveColor);
 				return;
 			}
 
+			// even element
 			if (index % 2 == 0)
 			{
 				return;
@@ -180,7 +184,7 @@ namespace Mochineko.ReorderableList
 				=> DrawDropDown(rect, canditateNames, OnSelected);
 		}
 
-		private void DrawDropDown(Rect rect, string[] canditateNames, System.Action<string> OnSelected)
+		protected virtual void DrawDropDown(Rect rect, string[] canditateNames, System.Action<string> OnSelected)
 		{
 			var menu = new GenericMenu();
 
