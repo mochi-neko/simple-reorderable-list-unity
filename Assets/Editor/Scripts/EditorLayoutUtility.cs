@@ -28,7 +28,7 @@ namespace Mochineko.ReorderableList
 		/// A single line height with margin.
 		/// </summary>
 		public static float SingleLineHeight
-			=> EditorGUIUtility.singleLineHeight 
+			=> EditorGUIUtility.singleLineHeight
 				+ singleLineHeightMargin * 2f; // top and bottom
 
 		/// <summary>
@@ -37,8 +37,9 @@ namespace Mochineko.ReorderableList
 		/// <param name="count"></param>
 		/// <returns></returns>
 		public static float MultiPropertiesHeight(int count)
-			=> SingleLineHeight * count	
-				+ multiPropertiesHeightMargin;
+			=> EditorGUIUtility.singleLineHeight * count
+				+ singleLineHeightMargin * 2f;
+				//+ multiPropertiesHeightMargin;
 
 		/// <summary>
 		/// A multi properties height in the property with margin. 

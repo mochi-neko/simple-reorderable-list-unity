@@ -248,12 +248,49 @@ MonoBehaviour:
     strings:
     - 
     - 
+    samples:
+    - name: 
+      index: 0
+      vector: {x: 0, y: 0, z: 0}
+      strings: []
+      samples:
+      - name: 
+        index: 0
+        vector: {x: 0, y: 0, z: 0}
+        strings: []
+        samples: []
+      - name: 
+        index: 0
+        vector: {x: 0, y: 0, z: 0}
+        strings: []
+        samples: []
+    - name: 
+      index: 0
+      vector: {x: 0, y: 0, z: 0}
+      strings: []
+      samples: []
+    - name: 
+      index: 0
+      vector: {x: 0, y: 0, z: 0}
+      strings: []
+      samples:
+      - name: 
+        index: 0
+        vector: {x: 0, y: 0, z: 0}
+        strings: []
+        samples: []
+      - name: 
+        index: 0
+        vector: {x: 0, y: 0, z: 0}
+        strings: []
+        samples: []
   - name: 
     index: 0
     vector: {x: 0, y: 0, z: 0}
     strings:
     - 
     - 
+    samples: []
   - name: 
     index: 0
     vector: {x: 0, y: 0, z: 0}
@@ -261,16 +298,19 @@ MonoBehaviour:
     - 
     - 
     - 
+    samples: []
   - name: 
     index: 0
     vector: {x: 0, y: 0, z: 0}
     strings: []
+    samples: []
   - name: 
     index: 0
     vector: {x: 0, y: 0, z: 0}
     strings:
     - 
     - 
+    samples: []
 --- !u!4 &369834348
 Transform:
   m_ObjectHideFlags: 0
@@ -302,14 +342,17 @@ MonoBehaviour:
     index: 0
     vector: {x: 0, y: 0, z: 0}
     strings: []
+    samples: []
   - name: 
     index: 0
     vector: {x: 0, y: 0, z: 0}
     strings: []
+    samples: []
   - name: 
     index: 0
     vector: {x: 0, y: 0, z: 0}
     strings: []
+    samples: []
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0

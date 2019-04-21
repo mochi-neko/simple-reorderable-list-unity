@@ -131,6 +131,7 @@ namespace Mochineko.ReorderableList
 
 			// adjust center position
 			rect.y += EditorLayoutUtility.singleLineHeightMargin;
+			//rect.height += EditorLayoutUtility.singleLineHeightMargin * 10f; // does not mean
 
 			EditorGUI.PropertyField(rect, property, true);
 		}

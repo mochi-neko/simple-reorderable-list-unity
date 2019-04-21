@@ -18,5 +18,8 @@ namespace Mochineko.ReorderableList.Samples
 
 		[SerializeField]
 		private string[] strings = new string[0];
+
+		[SerializeField]
+		private List<SampleElement> samples = new List<SampleElement> { };
 	}
 }

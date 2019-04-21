@@ -19,6 +19,8 @@ namespace Mochineko.ReorderableList.Samples.Editor
 
 		public override void OnInspectorGUI()
 		{
+			serializedObject.Update();
+
 			EditorGUI.BeginChangeCheck();
 			{
 				EditorFieldUtility.ReadOnlyComponentField(target as MonoBehaviour, this);

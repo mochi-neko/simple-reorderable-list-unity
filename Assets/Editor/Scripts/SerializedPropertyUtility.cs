@@ -32,7 +32,7 @@ namespace Mochineko.ReorderableList
 		/// </summary>
 		/// <param name="property"></param>
 		/// <returns></returns>
-		public static int CountActiveElements(this SerializedProperty property)
+		public static int CountActiveElements(this SerializedProperty property, int initial = 1)
 		{
 			if (IsSingleProperty(property))
 				return 1;
