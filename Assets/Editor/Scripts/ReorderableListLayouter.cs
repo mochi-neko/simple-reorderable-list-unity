@@ -125,11 +125,11 @@ namespace Mochineko.ReorderableList
 			var element = GetListElement(index);
 
 			if (element.IsSingleProperty())
-				return EditorHeightUtility.SinglePropertyHeightWithElementMargin;
+				return EditorHeightUtility.SinglePropertyHeight;
 			else if (!element.isExpanded)
-				return EditorHeightUtility.SinglePropertyHeightWithElementMargin;
+				return EditorHeightUtility.SinglePropertyHeight;
 			else
-				return element.MultiPropertyHeightWithMargin();
+				return element.MultiPropertyHeight();
 		}
 
 		#endregion

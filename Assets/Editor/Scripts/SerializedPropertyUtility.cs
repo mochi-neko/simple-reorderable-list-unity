@@ -4,8 +4,9 @@ using UnityEditor;
 
 namespace Mochineko.ReorderableList
 {
-	// Todo : Refactor and add summaries
-
+	/// <summary>
+	/// Supplies utilities for <see cref="SerializedProperty"/>.
+	/// </summary>
 	internal static class SerializedPropertyUtility
 	{
 		/// <summary>
@@ -42,7 +43,7 @@ namespace Mochineko.ReorderableList
 			var copy = property.Copy();
 			var count = 1;
 
-			// count direct children
+			// count only direct children
 			while (copy.NextVisible(true))
 			{
 				if (!copy.IsChildOf(parent))

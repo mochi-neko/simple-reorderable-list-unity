@@ -1,29 +1,47 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
 
 namespace Mochineko.ReorderableList
 {
-	public static class EditorHeightUtility
+	/// <summary>
+	/// Supplies editor line height utilities.
+	/// </summary>
+	internal static class EditorHeightUtility
 	{
-		private const float PropertyHeigthMargin = 1f;
-		private const float ElementHeightMargin = 1f;
+		/// <summary>
+		/// A height margin of a single line.  
+		/// </summary>
+		private const float singleLineHeightMargin = 1f;
 
-		public static float SinglePropertyHeightWithMargin
+		/// <summary>
+		/// A single line height with margin.
+		/// </summary>
+		public static float SingleLineHeightWithMargin
 			=> EditorGUIUtility.singleLineHeight 
-				+ PropertyHeigthMargin * 2f;
+				+ singleLineHeightMargin * 2f;
 
-		public static float SinglePropertyHeightWithElementMargin
-			=> SinglePropertyHeightWithMargin 
-				+ ElementHeightMargin * 2f;
+		/// <summary>
+		/// A single property height with margin.
+		/// </summary>
+		public static float SinglePropertyHeight
+			=> SingleLineHeightWithMargin 
+				+ singleLineHeightMargin * 2f;
 
-		public static float MultiPropertyHeightWithMargin(int index)
-			=> SinglePropertyHeightWithMargin * index
-				+ PropertyHeigthMargin;
-
-		public static float MultiPropertyHeightWithMargin(this SerializedProperty property)
-			=> SinglePropertyHeightWithMargin * SerializedPropertyUtility.CountActiveElements(property) 
-				+ ElementHeightMargin * 2f;
+		/// <summary>
+		/// A multi properties height with margin. 
+		/// </summary>
+		/// <param name="count"></param>
+		/// <returns></returns>
+		public static float MultiPropertyHeight(int count)
+			=> SingleLineHeightWithMargin * count
+				+ singleLineHeightMargin * 2f;
+		/// <summary>
+		/// A multi properties height in the property with margin. 
+		/// </summary>
+		/// <param name="property"></param>
+		/// <returns></returns>
+		public static float MultiPropertyHeight(this SerializedProperty property)
+			=> MultiPropertyHeight(property.CountActiveElements());
 	}
 }
