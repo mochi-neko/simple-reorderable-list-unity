@@ -12,21 +12,19 @@ namespace Mochineko.ReorderableList
 		/// <summary>
 		/// A height margin of a single line.  
 		/// </summary>
-		private const float singleLineHeightMargin = 1f;
+		private const float singleLineHeightMargin = 4f;
+
+		/// <summary>
+		/// A height margin of multi properties.
+		/// </summary>
+		private const float multiPropertyHeightMargin = 6f;
 
 		/// <summary>
 		/// A single line height with margin.
 		/// </summary>
-		public static float SingleLineHeightWithMargin
+		public static float SingleLineHeight
 			=> EditorGUIUtility.singleLineHeight 
-				+ singleLineHeightMargin * 2f;
-
-		/// <summary>
-		/// A single property height with margin.
-		/// </summary>
-		public static float SinglePropertyHeight
-			=> SingleLineHeightWithMargin 
-				+ singleLineHeightMargin * 2f;
+				+ singleLineHeightMargin;
 
 		/// <summary>
 		/// A multi properties height with margin. 
@@ -34,8 +32,9 @@ namespace Mochineko.ReorderableList
 		/// <param name="count"></param>
 		/// <returns></returns>
 		public static float MultiPropertyHeight(int count)
-			=> SingleLineHeightWithMargin * count
-				+ singleLineHeightMargin * 2f;
+			=> SingleLineHeight * count	
+				+ multiPropertyHeightMargin;
+
 		/// <summary>
 		/// A multi properties height in the property with margin. 
 		/// </summary>

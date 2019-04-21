@@ -5,8 +5,8 @@ using UnityEditor;
 
 namespace Mochineko.ReorderableList
 {
-	// Todo : Refactor and add summaries
-
+	// ToDo : Add summaries
+	// WillDo : Support big height properties, e.g. Texture, AnimationCurve, etc...
 	public class ReorderableListLayouter
 	{
 		protected UnityEditorInternal.ReorderableList native;
@@ -15,7 +15,7 @@ namespace Mochineko.ReorderableList
 
 		protected SerializedProperty listProperty;
 
-		protected SerializedProperty GetListElement(int index)
+		protected SerializedProperty GetElementPropertyAt(int index)
 			=> listProperty.GetArrayElementAtIndex(index);
 
 		protected string DisplayName
@@ -115,7 +115,7 @@ namespace Mochineko.ReorderableList
 		}
 
 		protected virtual void DrawProperty(Rect rect, int index, bool isActive, bool isFocused)
-			=> DrawProperty(GetListElement(index), index, rect);
+			=> DrawProperty(GetElementPropertyAt(index), index, rect);
 
 		protected virtual void DrawProperty(SerializedProperty property, int elementIndex, Rect rect)
 		{
@@ -127,12 +127,12 @@ namespace Mochineko.ReorderableList
 
 		protected virtual float ElementHeight(int index)
 		{
-			var element = GetListElement(index);
+			var element = GetElementPropertyAt(index);
 
 			if (element.IsSingleProperty())
-				return EditorHeightUtility.SinglePropertyHeight;
+				return EditorHeightUtility.SingleLineHeight;
 			else if (!element.isExpanded)
-				return EditorHeightUtility.SinglePropertyHeight;
+				return EditorHeightUtility.SingleLineHeight;
 			else
 				return element.MultiPropertyHeight();
 		}
