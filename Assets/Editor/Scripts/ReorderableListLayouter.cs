@@ -122,6 +122,16 @@ namespace Mochineko.ReorderableList
 			if (property == null)
 				return;
 
+			if (!property.IsSingleProperty())
+			{
+				// avoid grip marker
+				rect.x += EditorLayoutUtility.gripWidth;
+				rect.width -= EditorLayoutUtility.gripWidth;
+			}
+
+			// adjust center position
+			rect.y += EditorLayoutUtility.singleLineHeightMargin;
+
 			EditorGUI.PropertyField(rect, property, true);
 		}
 
@@ -130,11 +140,11 @@ namespace Mochineko.ReorderableList
 			var element = GetElementPropertyAt(index);
 
 			if (element.IsSingleProperty())
-				return EditorHeightUtility.SingleLineHeight;
+				return EditorLayoutUtility.SingleLineHeight;
 			else if (!element.isExpanded)
-				return EditorHeightUtility.SingleLineHeight;
+				return EditorLayoutUtility.SingleLineHeight;
 			else
-				return element.MultiPropertyHeight();
+				return element.MultiPropertiesHeight();
 		}
 
 		#endregion

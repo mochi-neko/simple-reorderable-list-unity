@@ -5,42 +5,47 @@ using UnityEditor;
 namespace Mochineko.ReorderableList
 {
 	/// <summary>
-	/// Supplies editor line height utilities.
+	/// Supplies editor layout utilities.
 	/// </summary>
-	internal static class EditorHeightUtility
+	internal static class EditorLayoutUtility
 	{
 		/// <summary>
 		/// A height margin of a single line.  
 		/// </summary>
-		private const float singleLineHeightMargin = 4f;
+		public const float singleLineHeightMargin = 2f;
 
 		/// <summary>
 		/// A height margin of multi properties.
 		/// </summary>
-		private const float multiPropertyHeightMargin = 6f;
+		private const float multiPropertiesHeightMargin = 8f;
+
+		/// <summary>
+		/// The width of grip marker in the left of reorderable list element. 
+		/// </summary>
+		public const float gripWidth = 10f;
 
 		/// <summary>
 		/// A single line height with margin.
 		/// </summary>
 		public static float SingleLineHeight
 			=> EditorGUIUtility.singleLineHeight 
-				+ singleLineHeightMargin;
+				+ singleLineHeightMargin * 2f; // top and bottom
 
 		/// <summary>
 		/// A multi properties height with margin. 
 		/// </summary>
 		/// <param name="count"></param>
 		/// <returns></returns>
-		public static float MultiPropertyHeight(int count)
+		public static float MultiPropertiesHeight(int count)
 			=> SingleLineHeight * count	
-				+ multiPropertyHeightMargin;
+				+ multiPropertiesHeightMargin;
 
 		/// <summary>
 		/// A multi properties height in the property with margin. 
 		/// </summary>
 		/// <param name="property"></param>
 		/// <returns></returns>
-		public static float MultiPropertyHeight(this SerializedProperty property)
-			=> MultiPropertyHeight(property.CountActiveElements());
+		public static float MultiPropertiesHeight(this SerializedProperty property)
+			=> MultiPropertiesHeight(property.CountActiveElements());
 	}
 }

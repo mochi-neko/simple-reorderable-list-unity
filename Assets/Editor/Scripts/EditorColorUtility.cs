@@ -13,7 +13,7 @@ namespace Mochineko.ReorderableList
 		/// <summary>
 		/// Active color in defalt skin.
 		/// </summary>
-		private static readonly Color activeColor = new Color(0.2f, 0.7f, 0.95f, 0.95f);
+		private static readonly Color activeColor = new Color(0.5f, 0.7f, 0.95f, 0.95f);
 		/// <summary>
 		/// Active color in pro skin.
 		/// </summary>
@@ -35,7 +35,7 @@ namespace Mochineko.ReorderableList
 		/// <summary>
 		/// Background color in defalut skin.
 		/// </summary>
-		private static Color backgroundColor = new Color(0.92f, 0.92f, 0.92f, 1f);
+		private static Color backgroundColor = new Color(0.85f, 0.85f, 0.85f, 1f);
 		/// <summary>
 		/// Background color in pro skin.
 		/// </summary>
