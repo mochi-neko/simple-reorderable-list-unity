@@ -17,7 +17,7 @@ namespace Mochineko.ReorderableList
 		/// <summary>
 		/// Active color in pro skin.
 		/// </summary>
-		private static readonly Color activteColorPro = new Color(0.43f, 0.59f, 0.73f, 0.95f);
+		private static readonly Color activteColorPro = new Color(0.2f, 0.4f, 0.7f, 0.95f);
 		/// <summary>
 		/// Suppies active color for user skin.
 		/// </summary>
@@ -39,7 +39,7 @@ namespace Mochineko.ReorderableList
 		/// <summary>
 		/// Background color in pro skin.
 		/// </summary>
-		private static Color backgroundColorPro = new Color(0.54f, 0.54f, 0.54f, 1f);
+		private static Color backgroundColorPro = new Color(0.25f, 0.25f, 0.25f, 1f);
 		/// <summary>
 		/// Supplies background color for user skin.
 		/// </summary>
