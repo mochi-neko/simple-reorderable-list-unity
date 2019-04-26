@@ -15,11 +15,6 @@ namespace Mochineko.ReorderableList
 		public const float singleLineHeightMargin = 2f;
 
 		/// <summary>
-		/// A height margin of multi properties.
-		/// </summary>
-		private const float multiPropertiesHeightMargin = 8f;
-
-		/// <summary>
 		/// The width of grip marker in the left of reorderable list element. 
 		/// </summary>
 		public const float gripWidth = 12f;

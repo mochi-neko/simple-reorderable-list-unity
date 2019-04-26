@@ -10,6 +10,14 @@ namespace Mochineko.ReorderableList
 	internal static class SerializedPropertyUtility
 	{
 		/// <summary>
+		/// Returns the property is singlet or not.
+		/// </summary>
+		/// <param name="property"></param>
+		/// <returns></returns>
+		public static bool IsSingleProperty(this SerializedProperty property)
+			=> property.propertyType != SerializedPropertyType.Generic;
+
+		/// <summary>
 		/// Returns the input is child of the parent or not.
 		/// </summary>
 		/// <param name="property"></param>
@@ -36,35 +44,28 @@ namespace Mochineko.ReorderableList
 		{
 			if (IsSingleProperty(property))
 				return 1;
+			// fold out
 			if (!property.isExpanded)
 				return 1;
 
 			var parent = property.Copy();
-			var copy = property.Copy();
+			var child = property.Copy();
 			var count = 1;
 
 			// count only direct children
-			while (copy.NextVisible(true))
+			while (child.NextVisible(true))
 			{
-				if (!copy.IsChildOf(parent))
+				if (!child.IsChildOf(parent))
 					break;
-				if (!copy.IsDirectChildOf(parent))
+				if (!child.IsDirectChildOf(parent))
 					continue;
 
 				// count recursively
-				count += CountActiveElements(copy);
+				count += CountActiveElements(child);
 			}
 
 			return count;
 		}
-
-		/// <summary>
-		/// Returns the property is singlet or not.
-		/// </summary>
-		/// <param name="property"></param>
-		/// <returns></returns>
-		public static bool IsSingleProperty(this SerializedProperty property)
-			=> property.propertyType != SerializedPropertyType.Generic;
 	
 	}
 }
