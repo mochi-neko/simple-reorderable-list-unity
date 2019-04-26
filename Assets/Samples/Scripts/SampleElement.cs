@@ -8,18 +8,6 @@ namespace Mochineko.ReorderableList.Samples
 	public class SampleElement
 	{
 		[SerializeField]
-		private string name = null;
-
-		[SerializeField]
-		private int index = 0;
-
-		[SerializeField]
-		private Vector3 vector = new Vector3();
-
-		[SerializeField]
-		private string[] strings = new string[0];
-
-		[SerializeField]
-		private List<SampleElement> samples = new List<SampleElement> { };
+		private string text = "";
 	}
 }

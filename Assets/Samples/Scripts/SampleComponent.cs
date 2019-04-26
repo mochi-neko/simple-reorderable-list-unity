@@ -7,6 +7,12 @@ namespace Mochineko.ReorderableList.Samples
 	public class SampleComponent : MonoBehaviour
 	{
 		[SerializeField]
+		private List<string> singleSampleList = new List<string> { };
+
+		[SerializeField]
 		private List<SampleElement> sampleList = new List<SampleElement> { };
+
+		[SerializeField]
+		private List<SampleMultiElement> multiSampleList = new List<SampleMultiElement> { };
 	}
 }

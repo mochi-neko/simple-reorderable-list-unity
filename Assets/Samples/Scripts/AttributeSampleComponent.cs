@@ -8,6 +8,6 @@ namespace Mochineko.ReorderableList.Samples
 	{
 		[SerializeField]
 		[ReorderableList]
-		private List<SampleElement> sampleList = new List<SampleElement> { };
+		private List<SampleMultiElement> sampleList = new List<SampleMultiElement> { };
 	}
 }

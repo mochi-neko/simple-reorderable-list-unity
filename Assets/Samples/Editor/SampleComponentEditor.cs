@@ -8,13 +8,23 @@ namespace Mochineko.ReorderableList.Samples.Editor
 	[CustomEditor(typeof(SampleComponent))]
 	public class SampleComponentEditor : UnityEditor.Editor
 	{
-		private ReorderableListLayouter layouter;
+		private ReorderableListLayouter singleLayouter;
+		private ReorderableListLayouter sampleLayouter;
+		private ReorderableListLayouter multiLayouter;
 
 		private void OnEnable()
 		{
-			var property = serializedObject.FindProperty("sampleList");
+			singleLayouter = new ReorderableListLayouter(
+				serializedObject.FindProperty("singleSampleList")
+			);
 
-			layouter = new ReorderableListLayouter(property);
+			sampleLayouter = new ReorderableListLayouter(
+				serializedObject.FindProperty("sampleList")
+			);
+
+			multiLayouter = new ReorderableListLayouter(
+				serializedObject.FindProperty("multiSampleList")
+			);
 		}
 
 		public override void OnInspectorGUI()
@@ -25,8 +35,14 @@ namespace Mochineko.ReorderableList.Samples.Editor
 			{
 				EditorFieldUtility.ReadOnlyComponentField(target as MonoBehaviour, this);
 
-				if (layouter != null)
-					layouter.Layout();
+				if (singleLayouter != null)
+					singleLayouter.Layout();
+
+				if (sampleLayouter != null)
+					sampleLayouter.Layout();
+
+				if (multiLayouter != null)
+					multiLayouter.Layout();
 			}
 			if (EditorGUI.EndChangeCheck())
 			{
