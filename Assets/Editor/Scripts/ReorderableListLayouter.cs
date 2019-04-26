@@ -35,9 +35,40 @@ namespace Mochineko.ReorderableList
 
 		#endregion
 
+		#region Constructor
+
+		/// <summary>
+		/// Constructor for easy setting up.
+		/// </summary>
+		/// <param name="listProperty"></param>
+		public ReorderableListLayouter(SerializedProperty listProperty)
+		{
+			if (listProperty == null)
+				return;
+
+			this.listProperty = listProperty;
+
+			native = new UnityEditorInternal.ReorderableList(
+				listProperty.serializedObject, listProperty,
+				true, true, true, true
+			);
+
+			// default layouts
+			AddDrawHeader();
+			AddDrawElementProperty();
+			AddDrawElementBackground();
+		}
+
+		/// <summary>
+		/// Constructor for customizable developper.
+		/// </summary>
+		/// <param name="listProperty"></param>
+		/// <param name="draggable"></param>
+		/// <param name="displayHeader"></param>
+		/// <param name="displayAddButton"></param>
+		/// <param name="displayRemoveButton"></param>
 		public ReorderableListLayouter(
 			SerializedProperty listProperty,
-			bool customOwn = false,
 			bool draggable = true, bool displayHeader = true, bool displayAddButton = true, bool displayRemoveButton = true)
 		{
 			if (listProperty == null)
@@ -49,15 +80,11 @@ namespace Mochineko.ReorderableList
 				listProperty.serializedObject, listProperty,
 				draggable, displayHeader, displayAddButton, displayRemoveButton
 			);
-
-			if (customOwn)
-				return;
-
-			// default layouts
-			AddDrawHeader();
-			AddDrawElementProperty();
-			AddDrawElementBackground();
 		}
+
+		#endregion
+
+		#region Layout
 
 		public virtual void Layout(bool useFoldout = true)
 		{
@@ -74,6 +101,8 @@ namespace Mochineko.ReorderableList
 			if (IsExpanded)
 				native.DoLayoutList();
 		}
+
+		#endregion
 
 		#region Header
 

@@ -22,7 +22,7 @@ namespace Mochineko.ReorderableList
 		/// <summary>
 		/// The width of grip marker in the left of reorderable list element. 
 		/// </summary>
-		public const float gripWidth = 10f;
+		public const float gripWidth = 12f;
 
 		/// <summary>
 		/// A single line height with margin.
@@ -38,8 +38,7 @@ namespace Mochineko.ReorderableList
 		/// <returns></returns>
 		public static float MultiPropertiesHeight(int count)
 			=> EditorGUIUtility.singleLineHeight * count
-				+ singleLineHeightMargin * 2f;
-				//+ multiPropertiesHeightMargin;
+				+ singleLineHeightMargin * (count + 1); // Element Margin * 2 + Property Margin * (count - 1)
 
 		/// <summary>
 		/// A multi properties height in the property with margin. 
