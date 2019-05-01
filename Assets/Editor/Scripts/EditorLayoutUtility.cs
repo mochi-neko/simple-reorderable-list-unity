@@ -11,6 +11,9 @@ namespace Mochineko.ReorderableList
 	internal static class EditorLayoutUtility
 	{
 	
+		/// <summary>
+		/// The height of a single element on one side.
+		/// </summary>
 		public const float singleHeightMargin = 1f;
 
 		/// <summary>
@@ -18,9 +21,15 @@ namespace Mochineko.ReorderableList
 		/// </summary>
 		public const float gripWidth = 12f;
 
-		private const float elementLeftMargin = 1f;
+		/// <summary>
+		/// The width of a left margin on element background.
+		/// </summary>
+		private const float elementLeftWidthMargin = 1f;
 
-		private const float elementRightAdjuster = 3f;
+		/// <summary>
+		/// The width to adjust overflowing on element background.
+		/// </summary>
+		private const float elementRightWidthAdjuster = elementLeftWidthMargin + 2f;
 
 		/// <summary>
 		/// A single line height with margin.
@@ -29,10 +38,14 @@ namespace Mochineko.ReorderableList
 			=> EditorGUIUtility.singleLineHeight
 				+ singleHeightMargin * 2f; // top and bottom
 
+		/// <summary>
+		/// A multi line height with only margin on top and bottom.
+		/// </summary>
+		/// <param name="count"></param>
+		/// <returns></returns>
 		public static float MultiPropertiesHeight(int count)
 			=> EditorGUIUtility.singleLineHeight * count
 				+ singleHeightMargin * 2f; // top and bottom
-
 
 		/// <summary>
 		/// Draw texture to the rect by color.
@@ -46,8 +59,8 @@ namespace Mochineko.ReorderableList
 			texture.Apply();
 
 			// adjust element background layout in reorderable list
-			rect.x += elementLeftMargin;
-			rect.width -= elementRightAdjuster;
+			rect.x += elementLeftWidthMargin;
+			rect.width -= elementRightWidthAdjuster;
 
 			GUI.DrawTexture(rect, texture as Texture, ScaleMode.StretchToFill);
 		}

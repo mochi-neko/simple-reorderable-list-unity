@@ -6,7 +6,6 @@ using UnityEditor;
 namespace Mochineko.ReorderableList
 {
 	// ToDo : Add summaries
-	// WillDo : Support big height properties, e.g. Texture, AnimationCurve, etc...
 	public class ReorderableListLayouter
 	{
 		protected UnityEditorInternal.ReorderableList native;
@@ -206,8 +205,6 @@ namespace Mochineko.ReorderableList
 
 			rect.DrawElementColor(EditorColorUtility.EffectiveBackgroundColor);
 		}
-
-		
 
 		#endregion
 

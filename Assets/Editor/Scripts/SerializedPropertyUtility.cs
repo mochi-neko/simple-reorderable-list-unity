@@ -18,6 +18,12 @@ namespace Mochineko.ReorderableList
 		public static bool IsMultiProperty(this SerializedProperty property)
 			=> property.propertyType == SerializedPropertyType.Generic;
 
+		/// <summary>
+		/// A number of element in a single property.
+		/// Returns 1 for ordinary property, and -1 for multi properties,
+		/// </summary>
+		/// <param name="property"></param>
+		/// <returns></returns>
 		public static int IrregularSinglePropertyCount(this SerializedProperty property)
 		{
 			switch (property.propertyType)

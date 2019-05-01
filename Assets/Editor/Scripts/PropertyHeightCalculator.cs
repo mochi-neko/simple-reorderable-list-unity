@@ -5,17 +5,30 @@ using UnityEditor;
 
 namespace Mochineko.ReorderableList
 {
-	public static class PropertyHeightCalculator
+	/// <summary>
+	/// Supplies height of a property.
+	/// </summary>
+	internal static class PropertyHeightCalculator
 	{
+		/// <summary>
+		/// Calculates height of a property.
+		/// </summary>
+		/// <param name="property"></param>
+		/// <returns></returns>
 		public static float Height(this SerializedProperty property)
 		{
 			return
 				EditorLayoutUtility.singleHeightMargin // top
-				+ property.CalculateElementsHeight()
+				+ property.CalculatePropertyHeightRecursively()
 				+ EditorLayoutUtility.singleHeightMargin; // bottom
 		}
 		
-		private static float CalculateElementsHeight(this SerializedProperty property)
+		/// <summary>
+		/// Calculates height of a property including its children by recursion.
+		/// </summary>
+		/// <param name="property"></param>
+		/// <returns></returns>
+		private static float CalculatePropertyHeightRecursively(this SerializedProperty property)
 		{
 			// single property
 			if (!property.IsMultiProperty())
@@ -43,7 +56,7 @@ namespace Mochineko.ReorderableList
 					continue;
 
 				// count recursively
-				height += child.CalculateElementsHeight();
+				height += child.CalculatePropertyHeightRecursively();
 			}
 
 			return height;
