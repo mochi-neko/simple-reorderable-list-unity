@@ -49,8 +49,12 @@ namespace Mochineko.ReorderableList
 			this.listProperty = listProperty;
 
 			native = new UnityEditorInternal.ReorderableList(
-				listProperty.serializedObject, listProperty,
-				true, true, true, true
+				listProperty.serializedObject, 
+				listProperty,
+				draggable: true, 
+				displayHeader: true,
+				displayAddButton: true,
+				displayRemoveButton: true
 			);
 
 			// default layouts
@@ -77,8 +81,12 @@ namespace Mochineko.ReorderableList
 			this.listProperty = listProperty;
 
 			native = new UnityEditorInternal.ReorderableList(
-				listProperty.serializedObject, listProperty,
-				draggable, displayHeader, displayAddButton, displayRemoveButton
+				listProperty.serializedObject,
+				listProperty,
+				draggable,
+				displayHeader,
+				displayAddButton, 
+				displayRemoveButton
 			);
 		}
 
@@ -151,7 +159,7 @@ namespace Mochineko.ReorderableList
 			if (property == null)
 				return;
 
-			if (!property.IsSingleProperty())
+			if (property.IsMultiProperty())
 			{
 				// avoid grip marker
 				rect.x += EditorLayoutUtility.gripWidth;
@@ -159,23 +167,13 @@ namespace Mochineko.ReorderableList
 			}
 
 			// adjust center position
-			rect.y += EditorLayoutUtility.singleLineHeightMargin;
-			//rect.height += EditorLayoutUtility.singleLineHeightMargin * 10f; // does not mean
+			rect.y += EditorLayoutUtility.singleHeightMargin * 2f;
 
 			EditorGUI.PropertyField(rect, property, true);
 		}
 
 		protected virtual float ElementHeight(int index)
-		{
-			var element = GetElementPropertyAt(index);
-
-			if (element.IsSingleProperty())
-				return EditorLayoutUtility.SingleLineHeight;
-			else if (!element.isExpanded)
-				return EditorLayoutUtility.SingleLineHeight;
-			else
-				return element.MultiPropertiesHeight();
-		}
+			=> GetElementPropertyAt(index).Height();
 
 		#endregion
 
@@ -196,17 +194,17 @@ namespace Mochineko.ReorderableList
 			// current selected
 			if (isFocused)
 			{
-				rect.DrawColor(EditorColorUtility.EffectiveActiveColor);
+				rect.DrawElementColor(EditorColorUtility.EffectiveActiveColor);
 				return;
 			}
 
-			// even element
-			if (index % 2 == 0)
+			// odd element
+			if (index % 2 != 0)
 			{
 				return;
 			}
 
-			rect.DrawColor(EditorColorUtility.EffectiveBackgroundColor);
+			rect.DrawElementColor(EditorColorUtility.EffectiveBackgroundColor);
 		}
 
 		

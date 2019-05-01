@@ -9,13 +9,36 @@ namespace Mochineko.ReorderableList
 	/// </summary>
 	internal static class SerializedPropertyUtility
 	{
+		
 		/// <summary>
-		/// Returns the property is singlet or not.
+		/// Returns the property has multi children or not.
 		/// </summary>
 		/// <param name="property"></param>
 		/// <returns></returns>
-		public static bool IsSingleProperty(this SerializedProperty property)
-			=> property.propertyType != SerializedPropertyType.Generic;
+		public static bool IsMultiProperty(this SerializedProperty property)
+			=> property.propertyType == SerializedPropertyType.Generic;
+
+		public static int IrregularSinglePropertyCount(this SerializedProperty property)
+		{
+			switch (property.propertyType)
+			{
+				case SerializedPropertyType.Rect:
+					return 2;
+				case SerializedPropertyType.RectInt:
+					return 2;
+
+				case SerializedPropertyType.Bounds:
+					return 3;
+				case SerializedPropertyType.BoundsInt:
+					return 3;
+
+				case SerializedPropertyType.Generic:
+					return -1;
+
+				default:
+					return 1;
+			}
+		}
 
 		/// <summary>
 		/// Returns the input is child of the parent or not.
@@ -23,7 +46,7 @@ namespace Mochineko.ReorderableList
 		/// <param name="property"></param>
 		/// <param name="parent"></param>
 		/// <returns></returns>
-		private static bool IsChildOf(this SerializedProperty property, SerializedProperty parent)
+		public static bool IsChildOf(this SerializedProperty property, SerializedProperty parent)
 			=> property.depth > parent.depth;
 
 		/// <summary>
@@ -32,40 +55,8 @@ namespace Mochineko.ReorderableList
 		/// <param name="property"></param>
 		/// <param name="parent"></param>
 		/// <returns></returns>
-		private static bool IsDirectChildOf(this SerializedProperty property, SerializedProperty parent)
+		public static bool IsDirectChildOf(this SerializedProperty property, SerializedProperty parent)
 			=> property.depth == parent.depth + 1;
 
-		/// <summary>
-		/// Counts the number of active elements included in the property.
-		/// </summary>
-		/// <param name="property"></param>
-		/// <returns></returns>
-		public static int CountActiveElements(this SerializedProperty property, int initial = 1)
-		{
-			if (IsSingleProperty(property))
-				return 1;
-			// fold out
-			if (!property.isExpanded)
-				return 1;
-
-			var parent = property.Copy();
-			var child = property.Copy();
-			var count = 1;
-
-			// count only direct children
-			while (child.NextVisible(true))
-			{
-				if (!child.IsChildOf(parent))
-					break;
-				if (!child.IsDirectChildOf(parent))
-					continue;
-
-				// count recursively
-				count += CountActiveElements(child);
-			}
-
-			return count;
-		}
-	
 	}
 }

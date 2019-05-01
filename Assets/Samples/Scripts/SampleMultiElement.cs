@@ -11,13 +11,13 @@ namespace Mochineko.ReorderableList.Samples
 		private string name = null;
 
 		[SerializeField]
-		private int index = 0;
+		private Rect rect;
 
 		[SerializeField]
-		private Vector3 vector = new Vector3();
+		private Bounds bounds;
 
 		[SerializeField]
-		private string[] strings = new string[0];
+		private string text;
 
 		[SerializeField]
 		private List<SampleMultiElement> samples = new List<SampleMultiElement> { };

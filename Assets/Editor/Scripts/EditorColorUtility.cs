@@ -54,19 +54,6 @@ namespace Mochineko.ReorderableList
 			}
 		}
 
-		/// <summary>
-		/// Draw texture to the rect by color.
-		/// </summary>
-		/// <param name="rect"></param>
-		/// <param name="color"></param>
-		public static void DrawColor(this Rect rect, Color color)
-		{
-			var tex = new Texture2D(1, 1);
-			tex.SetPixel(0, 0, color);
-			tex.Apply();
-
-			GUI.DrawTexture(rect, tex as Texture);
-		}
 
 	}
 }
