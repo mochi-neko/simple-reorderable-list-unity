@@ -32,6 +32,10 @@ namespace Mochineko.ReorderableList.Samples.Editor
 			{
 				serializedObject.ApplyModifiedProperties();
 			}
+
+			SerializedObjectViewer.LayoutVisible(serializedObject);
+
+			SerializedObjectViewer.LayoutVisible(serializedObject.FindProperty("list"));
 		}
 	}
 }

@@ -9,14 +9,29 @@ namespace Mochineko.ReorderableList
 	/// </summary>
 	internal static class SerializedPropertyUtility
 	{
-		
+
 		/// <summary>
 		/// Returns the property has multi children or not.
 		/// </summary>
 		/// <param name="property"></param>
 		/// <returns></returns>
 		public static bool IsMultiProperty(this SerializedProperty property)
-			=> property.propertyType == SerializedPropertyType.Generic;
+		{
+			switch (property.propertyType)
+			{
+				case SerializedPropertyType.Generic:
+					return true;
+
+				case SerializedPropertyType.Vector4:
+					return true;
+
+				case SerializedPropertyType.Quaternion:
+					return true;
+
+				default:
+					return false;
+			}
+		}
 
 		/// <summary>
 		/// A number of element in a single property.
