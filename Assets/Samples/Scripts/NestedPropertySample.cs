@@ -13,6 +13,8 @@ namespace Mochineko.ReorderableList.Samples
 		private class SampleElement
 		{
 			[SerializeField]
+			private Rect rect = new Rect();
+			[SerializeField]
 			private Quaternion rotation = Quaternion.identity;
 			[SerializeField]
 			private string[] labels = new string[0];
