@@ -4,10 +4,9 @@ using UnityEngine;
 
 namespace Mochineko.ReorderableList.Samples
 {
-	[System.Serializable]
-	public class SampleElement
+	public class SinglePropertySample : MonoBehaviour
 	{
 		[SerializeField]
-		private string text = "";
+		private string[] texts = new string[0];
 	}
 }
