@@ -83,6 +83,9 @@ namespace Mochineko
 			for (var i = 0; i < count; i++)
 				builder.Append(" | ");
 
+			if (count > 0)
+				builder.Append("- ");
+
 			return builder.ToString();
 		}
 	}
