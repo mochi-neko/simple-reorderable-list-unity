@@ -6,7 +6,7 @@ using UnityEditor;
 namespace Mochineko.ReorderableList
 {
 	/// <summary>
-	/// Supplies height of a property.
+	/// Supplies calculation of height of a property.
 	/// </summary>
 	internal static class PropertyHeightCalculator
 	{
@@ -18,9 +18,9 @@ namespace Mochineko.ReorderableList
 		public static float Height(this SerializedProperty property)
 		{
 			return
-				EditorLayoutUtility.singleHeightMargin // top
+				EditorLayoutUtility.singleHeightMargin // top margin
 				+ property.CalculatePropertyHeightRecursively()
-				+ EditorLayoutUtility.singleHeightMargin; // bottom
+				+ EditorLayoutUtility.singleHeightMargin; // bottom margin
 		}
 		
 		/// <summary>
@@ -33,26 +33,26 @@ namespace Mochineko.ReorderableList
 			// single property
 			if (!property.IsMultiProperty())
 			{
-				return 
-					EditorLayoutUtility.MultiPropertiesHeight(
-						property.IrregularSinglePropertyCount()
-					);
+				return EditorLayoutUtility.MultiPropertiesHeight(
+					property.ElementCountInSingleProperty()
+				);
 			}
 
 			// fold out
 			if (!property.isExpanded)
 				return EditorLayoutUtility.SinglePropertyHeight;
 
-			var parent = property.Copy();
+			// make copied
+			//var parent = property.Copy();
 			var child = property.Copy();
 			var height = EditorLayoutUtility.SinglePropertyHeight;
 
 			// count only direct children
 			while (child.NextVisible(true))
 			{
-				if (!child.IsChildOf(parent))
+				if (!child.IsChildOf(property))
 					break;
-				if (!child.IsDirectChildOf(parent))
+				if (!child.IsDirectChildOf(property))
 					continue;
 
 				// count recursively

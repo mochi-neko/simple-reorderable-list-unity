@@ -20,11 +20,11 @@ namespace Mochineko.ReorderableList
 
 		/// <summary>
 		/// A number of element in a single property.
-		/// Returns 1 for ordinary property, and -1 for multi properties,
+		/// Returns 1 for ordinary single properties, -1 for multi properties, and other value for irregular single properties.
 		/// </summary>
 		/// <param name="property"></param>
 		/// <returns></returns>
-		public static int IrregularSinglePropertyCount(this SerializedProperty property)
+		public static int ElementCountInSingleProperty(this SerializedProperty property)
 		{
 			switch (property.propertyType)
 			{

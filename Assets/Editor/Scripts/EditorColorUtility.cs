@@ -21,7 +21,7 @@ namespace Mochineko.ReorderableList
 		/// <summary>
 		/// Suppies active color for user skin.
 		/// </summary>
-		public static Color EffectiveActiveColor
+		public static Color ActiveColor
 		{
 			get
 			{
@@ -43,7 +43,7 @@ namespace Mochineko.ReorderableList
 		/// <summary>
 		/// Supplies background color for user skin.
 		/// </summary>
-		public static Color EffectiveBackgroundColor
+		public static Color DifferentBackgroundColor
 		{
 			get
 			{
@@ -54,6 +54,23 @@ namespace Mochineko.ReorderableList
 			}
 		}
 
+		/// <summary>
+		/// Draw texture to the rect by color.
+		/// </summary>
+		/// <param name="rect"></param>
+		/// <param name="color"></param>
+		public static void DrawElementColor(Rect rect, Color color)
+		{
+			var texture = new Texture2D(1, 1);
+			texture.SetPixel(0, 0, color);
+			texture.Apply();
+
+			// adjust element background layout in reorderable list
+			rect.x += EditorLayoutUtility.elementLeftWidthMargin;
+			rect.width -= EditorLayoutUtility.elementRightWidthAdjuster;
+
+			GUI.DrawTexture(rect, texture as Texture, ScaleMode.StretchToFill);
+		}
 
 	}
 }

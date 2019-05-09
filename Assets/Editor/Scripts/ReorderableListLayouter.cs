@@ -5,30 +5,54 @@ using UnityEditor;
 
 namespace Mochineko.ReorderableList
 {
-	// ToDo : Add summaries
+	/// <summary>
+	/// Supplies an easily usable reorderable list on editor.
+	/// </summary>
 	public class ReorderableListLayouter
 	{
-		protected UnityEditorInternal.ReorderableList native;
+		/// <summary>
+		/// Native reorderable list.
+		/// </summary>
+		public UnityEditorInternal.ReorderableList Native { get; protected set; }
+
+		/// <summary>
+		/// Uses fold out or not.
+		/// </summary>
+		protected bool UseFoldOut { get; set; } = true;
 
 		#region Serialized Property
 
-		protected SerializedProperty listProperty;
+		/// <summary>
+		/// <see cref="SerializedProperty"/> of the source list.
+		/// </summary>
+		protected SerializedProperty SourceProperty { get; set; }
 
-		protected SerializedProperty GetElementPropertyAt(int index)
-			=> listProperty.GetArrayElementAtIndex(index);
+		/// <summary>
+		/// Gets <see cref="SerializedProperty"/> of the element at the index.
+		/// </summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
+		protected SerializedProperty ElementPropertyAt(int index)
+			=> SourceProperty.GetArrayElementAtIndex(index);
 
+		/// <summary>
+		/// Gets display name of the source list.
+		/// </summary>
 		protected string DisplayName
-			=> listProperty.displayName;
+			=> SourceProperty.displayName;
 
-		protected bool IsExpanded
+		/// <summary>
+		/// The source property is folded out or not.
+		/// </summary>
+		protected bool IsFoldedOut
 		{
 			get
 			{
-				return listProperty.isExpanded;
+				return SourceProperty.isExpanded;
 			}
 			set
 			{
-				listProperty.isExpanded = value;
+				SourceProperty.isExpanded = value;
 			}
 		}
 
@@ -37,102 +61,174 @@ namespace Mochineko.ReorderableList
 		#region Constructor
 
 		/// <summary>
-		/// Constructor for easy setting up.
-		/// </summary>
-		/// <param name="listProperty"></param>
-		public ReorderableListLayouter(SerializedProperty listProperty)
-		{
-			if (listProperty == null)
-				return;
-
-			this.listProperty = listProperty;
-
-			native = new UnityEditorInternal.ReorderableList(
-				listProperty.serializedObject, 
-				listProperty,
-				draggable: true, 
-				displayHeader: true,
-				displayAddButton: true,
-				displayRemoveButton: true
-			);
-
-			// default layouts
-			AddDrawHeader();
-			AddDrawElementProperty();
-			AddDrawElementBackground();
-		}
-
-		/// <summary>
 		/// Constructor for customizable developper.
 		/// </summary>
-		/// <param name="listProperty"></param>
-		/// <param name="draggable"></param>
-		/// <param name="displayHeader"></param>
-		/// <param name="displayAddButton"></param>
-		/// <param name="displayRemoveButton"></param>
+		/// <param name="sourceProperty">The source list property</param>
+		/// <param name="nativeOptions">Native options of reorderable list about functions.</param>
+		/// <param name="drawerOptions">Drawer options which are ready made.</param>
 		public ReorderableListLayouter(
-			SerializedProperty listProperty,
-			bool draggable = true, bool displayHeader = true, bool displayAddButton = true, bool displayRemoveButton = true)
+			SerializedProperty sourceProperty,
+			NativeFunctionOptions nativeOptions,
+			ReadyMadeDrawerOptions drawerOptions,
+			bool useFoldOut = true)
 		{
-			if (listProperty == null)
+			if (sourceProperty == null)
 				throw new System.ArgumentNullException("listProperty");
 
-			this.listProperty = listProperty;
+			this.SourceProperty = sourceProperty;
+			this.UseFoldOut = useFoldOut;
 
-			native = new UnityEditorInternal.ReorderableList(
+			InitializeNativeFunctions(sourceProperty, nativeOptions);
+
+			InitializeReadyMadeDrawers(drawerOptions);
+		}
+		public ReorderableListLayouter(
+			SerializedProperty sourceProperty,
+			bool useFoldOut = true)
+		{
+			if (sourceProperty == null)
+				throw new System.ArgumentNullException("listProperty");
+
+			this.SourceProperty = sourceProperty;
+			this.UseFoldOut = useFoldOut;
+
+			InitializeNativeFunctions(sourceProperty);
+
+			InitializeReadyMadeDrawers();
+		}
+		public ReorderableListLayouter(
+			SerializedProperty sourceProperty,
+			NativeFunctionOptions nativeOptions,
+			bool useFoldOut = true)
+		{
+			if (sourceProperty == null)
+				throw new System.ArgumentNullException("listProperty");
+
+			this.SourceProperty = sourceProperty;
+			this.UseFoldOut = useFoldOut;
+
+			InitializeNativeFunctions(sourceProperty, nativeOptions);
+
+			InitializeReadyMadeDrawers();
+		}
+		public ReorderableListLayouter(
+			SerializedProperty sourceProperty,
+			ReadyMadeDrawerOptions drawerOptions,
+			bool useFoldOut = true)
+		{
+			if (sourceProperty == null)
+				throw new System.ArgumentNullException("listProperty");
+
+			this.SourceProperty = sourceProperty;
+			this.UseFoldOut = useFoldOut;
+
+			InitializeNativeFunctions(sourceProperty);
+
+			InitializeReadyMadeDrawers(drawerOptions);
+		}
+
+		protected virtual void InitializeNativeFunctions(SerializedProperty listProperty)
+		{
+			InitializeNativeFunctions(listProperty, NativeFunctionOptions.Default);
+		}
+		protected virtual void InitializeNativeFunctions(SerializedProperty listProperty, NativeFunctionOptions options)
+		{
+			Native = new UnityEditorInternal.ReorderableList(
 				listProperty.serializedObject,
 				listProperty,
-				draggable,
-				displayHeader,
-				displayAddButton, 
-				displayRemoveButton
+				options.Draggable,
+				options.DisplayHeader,
+				options.DisplayAddButton,
+				options.DisplayRemoveButton
 			);
+		}
+
+		protected virtual void InitializeReadyMadeDrawers()
+			=> InitializeReadyMadeDrawers(ReadyMadeDrawerOptions.Default);
+		protected virtual void InitializeReadyMadeDrawers(ReadyMadeDrawerOptions options)
+		{
+			if (options.UseDefaultHeader)
+				AddDrawHeaderCallback();
+
+			if (options.UseDefaultElement)
+				AddDrawElementPropertyCallback();
+
+			if (options.UseDefaultBackground)
+				AddDrawElementBackgroundCallback();
 		}
 
 		#endregion
 
 		#region Layout
 
-		public virtual void Layout(bool useFoldout = true)
+		/// <summary>
+		/// Layouts field of reorderable list.
+		/// Please call this on inspector GUI updated.
+		/// </summary>
+		public virtual void Layout()
 		{
-			if (native == null)
+			if (Native == null)
 				return;
 
-			if (!useFoldout)
-			{
-				native.DoLayoutList();
-				return;
-			}
+			if (!UseFoldOut)
+				Native.DoLayoutList();
+			else
+				LayoutWithFoldOut();
+		}
 
-			IsExpanded = EditorGUILayout.Foldout(IsExpanded, DisplayName);
-			if (IsExpanded)
-				native.DoLayoutList();
+		/// <summary>
+		/// Layouts field of reorderable list with foldout.
+		/// </summary>
+		protected virtual void LayoutWithFoldOut()
+		{
+			IsFoldedOut = EditorGUILayout.Foldout(IsFoldedOut, DisplayName);
+
+			if (!IsFoldedOut)
+				return;
+
+			Native.DoLayoutList();
 		}
 
 		#endregion
 
 		#region Header
 
-		public void AddDrawHeader()
+		/// <summary>
+		/// Adds drwa header callback by default label. 
+		/// </summary>
+		public virtual void AddDrawHeaderCallback()
 		{
-			if (native == null)
+			if (Native == null)
 				return;
 
-			native.drawHeaderCallback += DrawListName;
+			Native.drawHeaderCallback += DrawHeader;
 		}
-		public void AddDrawHeader(string label)
+		/// <summary>
+		/// Adds drwa header callback by specified label.
+		/// </summary>
+		/// <param name="label"></param>
+		public virtual void AddDrawHeaderCallback(string label)
 		{
-			if (native == null)
+			if (Native == null)
 				return;
 
-			native.drawHeaderCallback += DrawListName;
+			Native.drawHeaderCallback += (rect) => DrawHeader(rect, label);
 		}
 
-		protected virtual void DrawListName(Rect rect)
+		/// <summary>
+		/// Drwas header by default label. 
+		/// </summary>
+		/// <param name="rect"></param>
+		protected virtual void DrawHeader(Rect rect)
 		{
 			EditorGUI.LabelField(rect, DisplayName);
 		}
-		protected virtual void DrawListName(Rect rect, string label)
+		/// <summary>
+		/// Drwas header by specified label.
+		/// </summary>
+		/// <param name="rect"></param>
+		/// <param name="label"></param>
+		protected virtual void DrawHeader(Rect rect, string label)
 		{
 			EditorGUI.LabelField(rect, label);
 		}
@@ -141,19 +237,33 @@ namespace Mochineko.ReorderableList
 
 		#region Property
 
-		public void AddDrawElementProperty()
+		/// <summary>
+		/// Adds draw element property callback.
+		/// </summary>
+		public void AddDrawElementPropertyCallback()
 		{
-			if (native == null)
+			if (Native == null)
 				return;
 
-			native.drawElementCallback += DrawProperty;
-			native.elementHeightCallback += ElementHeight;
+			Native.drawElementCallback += DrawProperty;
+			Native.elementHeightCallback += ElementHeight;
 		}
 
+		/// <summary>
+		/// Draws a property at an index.
+		/// </summary>
+		/// <param name="rect"></param>
+		/// <param name="index"></param>
+		/// <param name="isActive"></param>
+		/// <param name="isFocused"></param>
 		protected virtual void DrawProperty(Rect rect, int index, bool isActive, bool isFocused)
-			=> DrawProperty(GetElementPropertyAt(index), index, rect);
-
-		protected virtual void DrawProperty(SerializedProperty property, int elementIndex, Rect rect)
+			=> DrawProperty(rect, ElementPropertyAt(index));
+		/// <summary>
+		/// Draws the property in reorderable list by default <see cref="EditorGUI.PropertyField"/>. 
+		/// </summary>
+		/// <param name="property"></param>
+		/// <param name="rect"></param>
+		protected virtual void DrawProperty(Rect rect, SerializedProperty property)
 		{
 			if (property == null)
 				return;
@@ -161,8 +271,8 @@ namespace Mochineko.ReorderableList
 			if (property.IsMultiProperty())
 			{
 				// avoid grip marker
-				rect.x += EditorLayoutUtility.gripWidth;
-				rect.width -= EditorLayoutUtility.gripWidth;
+				rect.x += EditorLayoutUtility.gripMarkerWidth;
+				rect.width -= EditorLayoutUtility.gripMarkerWidth;
 			}
 
 			// adjust center position
@@ -171,54 +281,91 @@ namespace Mochineko.ReorderableList
 			EditorGUI.PropertyField(rect, property, true);
 		}
 
+		/// <summary>
+		/// Calculates height of an element at an index.
+		/// </summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
 		protected virtual float ElementHeight(int index)
-			=> GetElementPropertyAt(index).Height();
+			=> ElementPropertyAt(index).Height();
 
 		#endregion
 
 		#region Background
 
-		public void AddDrawElementBackground()
+		/// <summary>
+		/// Adds alternative draw element background callback.
+		/// </summary>
+		public void AddDrawElementBackgroundCallback()
 		{
-			if (native == null)
+			if (Native == null)
 				return;
 
-			native.drawElementBackgroundCallback +=
+			Native.drawElementBackgroundCallback +=
 				(Rect rect, int index, bool isActive, bool isFocused)
 					=> DrawElementBackgroundAlternatively(rect, index, isActive, isFocused);
 		}
 
+		/// <summary>
+		/// Draws element background alternatively for readability. 
+		/// </summary>
+		/// <param name="rect"></param>
+		/// <param name="index"></param>
+		/// <param name="isActive"></param>
+		/// <param name="isFocused"></param>
 		protected virtual void DrawElementBackgroundAlternatively(Rect rect, int index, bool isActive, bool isFocused)
 		{
-			// current selected
+			// selected element
 			if (isFocused)
 			{
-				rect.DrawElementColor(EditorColorUtility.EffectiveActiveColor);
+				DrawActiveColor(rect);
 				return;
 			}
 
 			// odd element
 			if (index % 2 != 0)
 			{
+				// draw default background color
 				return;
 			}
 
-			rect.DrawElementColor(EditorColorUtility.EffectiveBackgroundColor);
+			DrawDifferentBackgroundColor(rect);
+		}
+
+		protected virtual void DrawActiveColor(Rect rect)
+		{
+			EditorColorUtility.DrawElementColor(rect, EditorColorUtility.ActiveColor);
+		}
+
+		protected virtual void DrawDifferentBackgroundColor(Rect rect)
+		{
+			EditorColorUtility.DrawElementColor(rect, EditorColorUtility.DifferentBackgroundColor);
 		}
 
 		#endregion
 
 		#region Drop Down
 
-		public void AddDrawDropDown(string[] canditateNames, System.Action<string> OnSelected)
+		/// <summary>
+		/// Adds drop down callback with canditate names and selected callback.
+		/// </summary>
+		/// <param name="canditateNames"></param>
+		/// <param name="OnSelected"></param>
+		public virtual void AddDrawDropDownCallback(string[] canditateNames, System.Action<string> OnSelected)
 		{
-			if (native == null)
+			if (Native == null)
 				return;
 
-			native.onAddDropdownCallback += (rect, list)
+			Native.onAddDropdownCallback += (rect, list)
 				=> DrawDropDown(rect, canditateNames, OnSelected);
 		}
 
+		/// <summary>
+		/// Draw drop down menu.
+		/// </summary>
+		/// <param name="rect"></param>
+		/// <param name="canditateNames"></param>
+		/// <param name="OnSelected"></param>
 		protected virtual void DrawDropDown(Rect rect, string[] canditateNames, System.Action<string> OnSelected)
 		{
 			var menu = new GenericMenu();
@@ -231,6 +378,5 @@ namespace Mochineko.ReorderableList
 
 		#endregion
 
-		
 	}
 }
