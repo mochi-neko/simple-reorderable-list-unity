@@ -43,7 +43,6 @@ namespace Mochineko.ReorderableList
 				return EditorLayoutUtility.SinglePropertyHeight;
 
 			// make copied
-			//var parent = property.Copy();
 			var child = property.Copy();
 			var height = EditorLayoutUtility.SinglePropertyHeight;
 

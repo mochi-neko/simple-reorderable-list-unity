@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Mochineko.ReorderableList.Samples
 {
-	public class NestedPropertySample : MonoBehaviour
+	public class NestedMultiPropertySample : MonoBehaviour
 	{
 		[SerializeField]
 		private List<SampleElement> list = new List<SampleElement> { };
@@ -17,6 +17,8 @@ namespace Mochineko.ReorderableList.Samples
 		{
 			[SerializeField]
 			private Rect rect = new Rect();
+			[SerializeField]
+			private Bounds bounds = new Bounds();
 			[SerializeField]
 			private Quaternion rotation = Quaternion.identity;
 			[SerializeField]

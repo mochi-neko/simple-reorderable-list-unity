@@ -5,16 +5,16 @@ using UnityEditor;
 
 namespace Mochineko.ReorderableList.Samples.Editor
 {
-	[CustomEditor(typeof(ExpandedPropertySample))]
-	public class ExpandedPropertySampleEditor : UnityEditor.Editor
+	[CustomEditor(typeof(FixedElementCountSample))]
+	public class FixedElementCountSampleEditor : UnityEditor.Editor
 	{
 		private ReorderableListLayouter layouter;
 
 		private void OnEnable()
 		{
 			layouter = new ReorderableListLayouter(
-				serializedObject.FindProperty("list"),
-				false
+				serializedObject.FindProperty("texts"),
+				new NativeFunctionOptions(true, true, false, false)
 			);
 		}
 

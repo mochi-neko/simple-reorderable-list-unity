@@ -5,15 +5,24 @@ using UnityEditor;
 
 namespace Mochineko.ReorderableList.Samples.Editor
 {
-	[CustomEditor(typeof(NestedPropertySample))]
-	public class NestedPropertySampleEditor : UnityEditor.Editor
+	[CustomEditor(typeof(DropDownSample))]
+	public class DropDownSampleEditor : UnityEditor.Editor
 	{
 		private ReorderableListLayouter layouter;
+		private DropDownSample component;
 
 		private void OnEnable()
 		{
+			if (component == null)
+				component = target as DropDownSample;
+
 			layouter = new ReorderableListLayouter(
-				serializedObject.FindProperty("list")
+				serializedObject.FindProperty("humans")
+			);
+
+			layouter.AddDrawDropDownCallback(
+				DropDownSample.bloodTypeCanditates, 
+				(selected) => component.Humans.Add(new DropDownSample.Human(selected))
 			);
 		}
 
@@ -32,10 +41,6 @@ namespace Mochineko.ReorderableList.Samples.Editor
 			{
 				serializedObject.ApplyModifiedProperties();
 			}
-
-			SerializedObjectViewer.LayoutVisible(serializedObject);
-
-			SerializedObjectViewer.LayoutVisible(serializedObject.FindProperty("list"));
 		}
 	}
 }
