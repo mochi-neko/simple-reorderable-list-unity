@@ -8,16 +8,16 @@ namespace Mochineko.ReorderableList
 	/// <summary>
 	/// Supplies editor color utilities.
 	/// </summary>
-	internal static class EditorColorUtility 
+	internal static class EditorColorUtility
 	{
 		/// <summary>
-		/// Active color in defalt skin.
+		/// Active color in personal skin.
 		/// </summary>
-		private static readonly Color activeColor = new Color(0.5f, 0.7f, 0.95f, 0.95f);
+		private static readonly Color activeColorPersonal = new Color(0.3f, 0.6f, 0.95f, 0.95f);
 		/// <summary>
-		/// Active color in pro skin.
+		/// Active color in professional skin.
 		/// </summary>
-		private static readonly Color activteColorPro = new Color(0.2f, 0.4f, 0.7f, 0.95f);
+		private static readonly Color activteColorProfessional = new Color(0.2f, 0.4f, 0.7f, 0.95f);
 		/// <summary>
 		/// Suppies active color for user skin.
 		/// </summary>
@@ -25,21 +25,21 @@ namespace Mochineko.ReorderableList
 		{
 			get
 			{
-				if (!EditorGUIUtility.isProSkin)
-					return activeColor;
+				if (EditorGUIUtility.isProSkin)
+					return activteColorProfessional;
 
-				return activteColorPro;
+				return activeColorPersonal;
 			}
 		}
 
 		/// <summary>
-		/// Background color in defalut skin.
+		/// Background color in personal skin.
 		/// </summary>
-		private static Color backgroundColor = new Color(0.85f, 0.85f, 0.85f, 1f);
+		private static Color backgroundColorPersonal = new Color(0.85f, 0.85f, 0.85f, 1f);
 		/// <summary>
-		/// Background color in pro skin.
+		/// Background color in professional skin.
 		/// </summary>
-		private static Color backgroundColorPro = new Color(0.25f, 0.25f, 0.25f, 1f);
+		private static Color backgroundColorProfessional = new Color(0.25f, 0.25f, 0.25f, 1f);
 		/// <summary>
 		/// Supplies background color for user skin.
 		/// </summary>
@@ -47,10 +47,10 @@ namespace Mochineko.ReorderableList
 		{
 			get
 			{
-				if (!EditorGUIUtility.isProSkin)
-					return backgroundColor;
+				if (EditorGUIUtility.isProSkin)
+					return backgroundColorProfessional;
 
-				return backgroundColorPro;
+				return backgroundColorPersonal;
 			}
 		}
 
