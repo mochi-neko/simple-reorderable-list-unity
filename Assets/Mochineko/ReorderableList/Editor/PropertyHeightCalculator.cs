@@ -8,50 +8,50 @@ namespace Mochineko.ReorderableList
 	/// <summary>
 	/// Supplies calculation of height of a property.
 	/// </summary>
-	internal static class PropertyHeightCalculator
+	public static class PropertyHeightCalculator
 	{
 		/// <summary>
-		/// Calculates height of a property.
+		/// Calculates height of <paramref name="property"/>.
 		/// </summary>
 		/// <param name="property"></param>
 		/// <returns></returns>
 		public static float Height(this SerializedProperty property)
 		{
 			return
-				EditorLayoutUtility.singleHeightMargin // top margin
-				+ property.CalculatePropertyHeightRecursively()
-				+ EditorLayoutUtility.singleHeightMargin; // bottom margin
+				ReorderableListLayoutUtility.singleHeightMargin // top margin
+				+ property.CalculatePropertyHeightRecursively() // properties
+				+ ReorderableListLayoutUtility.singleHeightMargin; // bottom margin
 		}
-		
+
 		/// <summary>
-		/// Calculates height of a property including its children by recursion.
+		/// Calculates height of <paramref name="property"/> including its descendant by recursion.
 		/// </summary>
 		/// <param name="property"></param>
 		/// <returns></returns>
 		private static float CalculatePropertyHeightRecursively(this SerializedProperty property)
 		{
 			// single property
-			if (!property.IsMultiProperty())
+			if (!property.HasMultiPropertiesWithNoGeneric())
 			{
-				return EditorLayoutUtility.MultiPropertiesHeight(
-					property.ElementCountInSingleProperty()
+				return ReorderableListLayoutUtility.MultiPropertiesHeight(
+					property.PropertyCountInSingleProperty()
 				);
 			}
 
 			// fold out
 			if (!property.isExpanded)
-				return EditorLayoutUtility.SinglePropertyHeight;
+				return ReorderableListLayoutUtility.SinglePropertyHeight;
 
 			// make copied
 			var child = property.Copy();
-			var height = EditorLayoutUtility.SinglePropertyHeight;
+			var height = ReorderableListLayoutUtility.SinglePropertyHeight;
 
-			// count only direct children
+			// count only children
 			while (child.NextVisible(true))
 			{
-				if (!child.IsChildOf(property))
+				if (!child.IsDescendantOf(property))
 					break;
-				if (!child.IsDirectChildOf(property))
+				if (!child.IsChildOf(property))
 					continue;
 
 				// count recursively

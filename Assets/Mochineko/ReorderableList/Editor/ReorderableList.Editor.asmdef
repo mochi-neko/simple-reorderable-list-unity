@@ -1,5 +1,5 @@
 {
-    "name": "ReorderableListEditorAssembly",
+    "name": "ReorderableList.Editor",
     "references": [],
     "optionalUnityReferences": [],
     "includePlatforms": [

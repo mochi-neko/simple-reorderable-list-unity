@@ -9,9 +9,21 @@ namespace Mochineko.ReorderableList
 	/// </summary>
 	public struct NativeFunctionOptions
 	{
+		/// <summary>
+		/// Element can be dragged or not.
+		/// </summary>
 		public bool Draggable { get; private set; }
+		/// <summary>
+		/// Displays text in header or not.
+		/// </summary>
 		public bool DisplayHeader { get; private set; }
+		/// <summary>
+		/// Displays add (+) button or not.
+		/// </summary>
 		public bool DisplayAddButton { get; private set; }
+		/// <summary>
+		/// Displays remove (-) button or not.
+		/// </summary>
 		public bool DisplayRemoveButton { get; private set; }
 
 		public NativeFunctionOptions(

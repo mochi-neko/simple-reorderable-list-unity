@@ -166,6 +166,76 @@ MonoBehaviour:
     - 
     - 
     - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    bounds:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    vector: {x: 0, y: 0, z: 0, w: 0}
+    labels:
+    - 
+    - 
+    - 
+    - 
+  - rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    bounds:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    vector: {x: 0, y: 0, z: 0, w: 0}
+    labels:
+    - 
+    - 
+    - 
+    - 
+  - rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    bounds:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    vector: {x: 0, y: 0, z: 0, w: 0}
+    labels:
+    - 
+    - 
+    - 
+    - 
+  - rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    bounds:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    vector: {x: 0, y: 0, z: 0, w: 0}
+    labels:
+    - 
+    - 
+    - 
+    - 
   - rect:
       serializedVersion: 2
       x: 0
@@ -498,6 +568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d9a535a6de6394fa31926a584d3e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  texts: []
   list:
   - 
   - 

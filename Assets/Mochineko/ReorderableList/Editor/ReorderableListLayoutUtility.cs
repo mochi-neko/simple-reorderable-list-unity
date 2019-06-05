@@ -6,9 +6,9 @@ using UnityEditor;
 namespace Mochineko.ReorderableList
 {
 	/// <summary>
-	/// Supplies editor layout utilities.
+	/// Supplies editor layout utilities for reorderable list.
 	/// </summary>
-	internal static class EditorLayoutUtility
+	public static class ReorderableListLayoutUtility
 	{
 	
 		/// <summary>
@@ -47,6 +47,24 @@ namespace Mochineko.ReorderableList
 			=> EditorGUIUtility.singleLineHeight * count
 				+ singleHeightMargin * 2f; // top and bottom
 
-		
+
+		/// <summary>
+		/// Draw texture to <paramref name="rect"/> by <paramref name="color"/>.
+		/// </summary>
+		/// <param name="rect"></param>
+		/// <param name="color"></param>
+		public static void DrawElementBackgroundColor(Rect rect, Color color)
+		{
+			var texture = new Texture2D(1, 1);
+			texture.SetPixel(0, 0, color);
+			texture.Apply();
+
+			// adjust element background layout in reorderable list
+			rect.x += elementLeftWidthMargin;
+			rect.width -= elementRightWidthAdjuster;
+
+			GUI.DrawTexture(rect, texture as Texture, ScaleMode.StretchToFill);
+		}
+
 	}
 }

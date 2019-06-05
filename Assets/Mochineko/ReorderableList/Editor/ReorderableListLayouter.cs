@@ -61,7 +61,27 @@ namespace Mochineko.ReorderableList
 		#region Constructor
 
 		/// <summary>
-		/// Constructor for customizable developper.
+		/// Easy constructor. 
+		/// </summary>
+		/// <param name="sourceProperty"></param>
+		/// <param name="useFoldOut"></param>
+		public ReorderableListLayouter(
+			SerializedProperty sourceProperty,
+			bool useFoldOut = true)
+		{
+			if (sourceProperty == null)
+				throw new System.ArgumentNullException("listProperty");
+
+			this.SourceProperty = sourceProperty;
+			this.UseFoldOut = useFoldOut;
+
+			InitializeNative(sourceProperty);
+
+			InitializeReadyMadeDrawers();
+		}
+
+		/// <summary>
+		/// Constructor for customizable developpers.
 		/// </summary>
 		/// <param name="sourceProperty">The source list property</param>
 		/// <param name="nativeOptions">Native options of reorderable list about functions.</param>
@@ -78,24 +98,17 @@ namespace Mochineko.ReorderableList
 			this.SourceProperty = sourceProperty;
 			this.UseFoldOut = useFoldOut;
 
-			InitializeNativeFunctions(sourceProperty, nativeOptions);
+			InitializeNative(sourceProperty, nativeOptions);
 
 			InitializeReadyMadeDrawers(drawerOptions);
 		}
-		public ReorderableListLayouter(
-			SerializedProperty sourceProperty,
-			bool useFoldOut = true)
-		{
-			if (sourceProperty == null)
-				throw new System.ArgumentNullException("listProperty");
-
-			this.SourceProperty = sourceProperty;
-			this.UseFoldOut = useFoldOut;
-
-			InitializeNativeFunctions(sourceProperty);
-
-			InitializeReadyMadeDrawers();
-		}
+		
+		/// <summary>
+		///  Constructor for customizable developpers.
+		/// </summary>
+		/// <param name="sourceProperty"></param>
+		/// <param name="nativeOptions"></param>
+		/// <param name="useFoldOut"></param>
 		public ReorderableListLayouter(
 			SerializedProperty sourceProperty,
 			NativeFunctionOptions nativeOptions,
@@ -107,10 +120,16 @@ namespace Mochineko.ReorderableList
 			this.SourceProperty = sourceProperty;
 			this.UseFoldOut = useFoldOut;
 
-			InitializeNativeFunctions(sourceProperty, nativeOptions);
+			InitializeNative(sourceProperty, nativeOptions);
 
 			InitializeReadyMadeDrawers();
 		}
+		/// <summary>
+		///  Constructor for customizable developpers.
+		/// </summary>
+		/// <param name="sourceProperty"></param>
+		/// <param name="drawerOptions"></param>
+		/// <param name="useFoldOut"></param>
 		public ReorderableListLayouter(
 			SerializedProperty sourceProperty,
 			ReadyMadeDrawerOptions drawerOptions,
@@ -122,16 +141,25 @@ namespace Mochineko.ReorderableList
 			this.SourceProperty = sourceProperty;
 			this.UseFoldOut = useFoldOut;
 
-			InitializeNativeFunctions(sourceProperty);
+			InitializeNative(sourceProperty);
 
 			InitializeReadyMadeDrawers(drawerOptions);
 		}
 
-		protected virtual void InitializeNativeFunctions(SerializedProperty listProperty)
+		/// <summary>
+		/// Initialize native reorderable list.
+		/// </summary>
+		/// <param name="listProperty"></param>
+		protected virtual void InitializeNative(SerializedProperty listProperty)
 		{
-			InitializeNativeFunctions(listProperty, NativeFunctionOptions.Default);
+			InitializeNative(listProperty, NativeFunctionOptions.Default);
 		}
-		protected virtual void InitializeNativeFunctions(SerializedProperty listProperty, NativeFunctionOptions options)
+		/// <summary>
+		/// Initialize native reorderable list by <paramref name="options"/>.
+		/// </summary>
+		/// <param name="listProperty"></param>
+		/// <param name="options"></param>
+		protected virtual void InitializeNative(SerializedProperty listProperty, NativeFunctionOptions options)
 		{
 			Native = new UnityEditorInternal.ReorderableList(
 				listProperty.serializedObject,
@@ -143,17 +171,24 @@ namespace Mochineko.ReorderableList
 			);
 		}
 
-		protected virtual void InitializeReadyMadeDrawers()
+		/// <summary>
+		/// Initialize ready made drawers.
+		/// </summary>
+		public virtual void InitializeReadyMadeDrawers()
 			=> InitializeReadyMadeDrawers(ReadyMadeDrawerOptions.Default);
-		protected virtual void InitializeReadyMadeDrawers(ReadyMadeDrawerOptions options)
+		/// <summary>
+		/// Initialize ready made drawers by <paramref name="options"/>.
+		/// </summary>
+		/// <param name="options"></param>
+		public virtual void InitializeReadyMadeDrawers(ReadyMadeDrawerOptions options)
 		{
-			if (options.UseDefaultHeader)
+			if (options.UseReadyMadeHeader)
 				AddDrawHeaderCallback();
 
-			if (options.UseDefaultElement)
+			if (options.UseReadyMadeElement)
 				AddDrawElementPropertyCallback();
 
-			if (options.UseDefaultBackground)
+			if (options.UseReadyMadeBackground)
 				AddDrawElementBackgroundCallback();
 		}
 
@@ -163,7 +198,7 @@ namespace Mochineko.ReorderableList
 
 		/// <summary>
 		/// Layouts field of reorderable list.
-		/// Please call this on inspector GUI updated.
+		/// Please call this at <see cref="Editor.OnInspectorGUI"/>.
 		/// </summary>
 		public virtual void Layout()
 		{
@@ -178,6 +213,7 @@ namespace Mochineko.ReorderableList
 
 		/// <summary>
 		/// Layouts field of reorderable list with foldout.
+		/// Please call this at <see cref="Editor.OnInspectorGUI"/>.
 		/// </summary>
 		protected virtual void LayoutWithFoldOut()
 		{
@@ -204,7 +240,7 @@ namespace Mochineko.ReorderableList
 			Native.drawHeaderCallback += DrawHeader;
 		}
 		/// <summary>
-		/// Adds drwa header callback by specified label.
+		/// Adds drwa header callback by <paramref name="label"/>.
 		/// </summary>
 		/// <param name="label"></param>
 		public virtual void AddDrawHeaderCallback(string label)
@@ -216,7 +252,7 @@ namespace Mochineko.ReorderableList
 		}
 
 		/// <summary>
-		/// Drwas header by default label. 
+		/// Drwas header at <paramref name="rect"/> by default label. 
 		/// </summary>
 		/// <param name="rect"></param>
 		protected virtual void DrawHeader(Rect rect)
@@ -224,7 +260,7 @@ namespace Mochineko.ReorderableList
 			EditorGUI.LabelField(rect, DisplayName);
 		}
 		/// <summary>
-		/// Drwas header by specified label.
+		/// Drwas header at <paramref name="rect"/> by <paramref name="label"/>.
 		/// </summary>
 		/// <param name="rect"></param>
 		/// <param name="label"></param>
@@ -250,7 +286,7 @@ namespace Mochineko.ReorderableList
 		}
 
 		/// <summary>
-		/// Draws a property at an index.
+		/// Draws a property of <paramref name="index"/> at <paramref name="rect"/>.
 		/// </summary>
 		/// <param name="rect"></param>
 		/// <param name="index"></param>
@@ -259,7 +295,7 @@ namespace Mochineko.ReorderableList
 		protected virtual void DrawProperty(Rect rect, int index, bool isActive, bool isFocused)
 			=> DrawProperty(rect, ElementPropertyAt(index));
 		/// <summary>
-		/// Draws the property in reorderable list by default <see cref="EditorGUI.PropertyField"/>. 
+		/// Draws <paramref name="property"/> at <paramref name="rect"/>. 
 		/// </summary>
 		/// <param name="property"></param>
 		/// <param name="rect"></param>
@@ -268,21 +304,22 @@ namespace Mochineko.ReorderableList
 			if (property == null)
 				return;
 
-			if (property.IsMultiProperty())
+			// avoid grip marker
+			if (property.HasMultiPropertiesWithNoGeneric())
 			{
-				// avoid grip marker
-				rect.x += EditorLayoutUtility.gripMarkerWidth;
-				rect.width -= EditorLayoutUtility.gripMarkerWidth;
+				rect.x += ReorderableListLayoutUtility.gripMarkerWidth;
+				rect.width -= ReorderableListLayoutUtility.gripMarkerWidth;
 			}
 
 			// adjust center position
-			rect.y += EditorLayoutUtility.singleHeightMargin * 2f;
+			rect.y += ReorderableListLayoutUtility.singleHeightMargin * 2f;
 
+			// Draw
 			EditorGUI.PropertyField(rect, property, true);
 		}
 
 		/// <summary>
-		/// Calculates height of an element at an index.
+		/// Calculates height of an element at <paramref name="index"/>.
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
@@ -307,7 +344,7 @@ namespace Mochineko.ReorderableList
 		}
 
 		/// <summary>
-		/// Draws element background alternatively for readability. 
+		/// Draws element background alternatively for readability at <paramref name="rect"/>. 
 		/// </summary>
 		/// <param name="rect"></param>
 		/// <param name="index"></param>
@@ -329,17 +366,26 @@ namespace Mochineko.ReorderableList
 				return;
 			}
 
+			// draw dirrerent background color
 			DrawDifferentBackgroundColor(rect);
 		}
 
+		/// <summary>
+		/// Draws active color background at <paramref name="rect"/>.
+		/// </summary>
+		/// <param name="rect"></param>
 		protected virtual void DrawActiveColor(Rect rect)
 		{
-			EditorColorUtility.DrawElementColor(rect, EditorColorUtility.ActiveColor);
+			ReorderableListLayoutUtility.DrawElementBackgroundColor(rect, EditorColorUtility.ActiveColor);
 		}
 
+		/// <summary>
+		/// Draws active color background at <paramref name="rect"/>.
+		/// </summary>
+		/// <param name="rect"></param>
 		protected virtual void DrawDifferentBackgroundColor(Rect rect)
 		{
-			EditorColorUtility.DrawElementColor(rect, EditorColorUtility.DifferentBackgroundColor);
+			ReorderableListLayoutUtility.DrawElementBackgroundColor(rect, EditorColorUtility.DifferentBackgroundColor);
 		}
 
 		#endregion
@@ -361,7 +407,7 @@ namespace Mochineko.ReorderableList
 		}
 
 		/// <summary>
-		/// Draw drop down menu.
+		/// Draw drop down menu at <paramref name="rect"/> with <paramref name="canditateNames"/> and <paramref name="OnSelected"/> reaction.
 		/// </summary>
 		/// <param name="rect"></param>
 		/// <param name="canditateNames"></param>
