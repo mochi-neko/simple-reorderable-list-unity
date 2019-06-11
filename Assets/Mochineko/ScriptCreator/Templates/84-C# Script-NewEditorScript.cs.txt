@@ -1,0 +1,30 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+
+namespace Synamon.Neutrans
+{
+	[CustomEditor(typeof(#SOURCE_NAME#))]
+	public class #SCRIPTNAME# : Editor
+	{
+		#FIELDS#
+
+		private void OnEnable()
+		{
+			#ON_ENABLE#
+		}
+
+		public override void OnInspectorGUI()
+		{
+			base.OnInspectorGUI();
+
+			EditorGUI.BeginChangeCheck();
+			{
+				#ON_INSPECTOR_GUI#
+			}
+			if (EditorGUI.EndChangeCheck())
+				serializedObject.ApplyModifiedProperties();
+		}
+	}
+}
