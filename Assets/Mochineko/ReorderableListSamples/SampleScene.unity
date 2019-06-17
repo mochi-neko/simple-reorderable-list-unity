@@ -164,62 +164,6 @@ MonoBehaviour:
     labels:
     - 
     - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
-  - rect:
-      serializedVersion: 2
-      x: 0
-      y: 0
-      width: 0
-      height: 0
-    bounds:
-      m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    vector: {x: 0, y: 0, z: 0, w: 0}
-    labels:
-    - 
-    - 
-    - 
-    - 
-  - rect:
-      serializedVersion: 2
-      x: 0
-      y: 0
-      width: 0
-      height: 0
-    bounds:
-      m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    vector: {x: 0, y: 0, z: 0, w: 0}
-    labels:
-    - 
-    - 
-    - 
-    - 
-  - rect:
-      serializedVersion: 2
-      x: 0
-      y: 0
-      width: 0
-      height: 0
-    bounds:
-      m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    vector: {x: 0, y: 0, z: 0, w: 0}
-    labels:
-    - 
-    - 
-    - 
-    - 
   - rect:
       serializedVersion: 2
       x: 0
@@ -575,6 +519,8 @@ MonoBehaviour:
     bloodType: B
   - name: 
     bloodType: O
+  - name: 
+    bloodType: A
 --- !u!4 &1653830224
 Transform:
   m_ObjectHideFlags: 0
@@ -619,14 +565,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   list:
-  - label: 
+  - label: ddd
     activity: 0
     position: {x: 0, y: 0, z: 0}
-  - label: 
-    activity: 0
+  - label: fffff
+    activity: 1
     position: {x: 0, y: 0, z: 0}
-  - label: 
-    activity: 0
+  - label: asd
+    activity: 1
+    position: {x: 0, y: 0, z: 0}
+  - label: asd
+    activity: 1
+    position: {x: 0, y: 0, z: 0}
+  - label: asd
+    activity: 1
     position: {x: 0, y: 0, z: 0}
 --- !u!4 &1670910516
 Transform:
@@ -672,12 +624,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   texts:
-  - aaa
-  - sdasd
-  - asdasdasd
-  - asd
-  - s
-  - sdasd
+  - A
+  - B
+  - C
+  - E
+  - E
+  - E
+  - E
+  - E
 --- !u!4 &1949796063
 Transform:
   m_ObjectHideFlags: 0

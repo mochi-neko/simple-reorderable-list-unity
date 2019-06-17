@@ -28,9 +28,9 @@ namespace Mochineko.ReorderableList
 
 		public NativeFunctionOptions(
 			bool draggable,
-			bool displayHeader,
-			bool displayAddButton,
-			bool displayRemoveButton)
+			bool displayHeader = true,
+			bool displayAddButton = true,
+			bool displayRemoveButton = true)
 		{
 			Draggable = draggable;
 			DisplayHeader = displayHeader;

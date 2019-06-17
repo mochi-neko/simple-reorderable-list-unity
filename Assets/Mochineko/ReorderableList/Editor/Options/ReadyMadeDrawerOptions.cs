@@ -22,13 +22,13 @@ namespace Mochineko.ReorderableList
 		public bool UseReadyMadeBackground { get; private set; }
 
 		public ReadyMadeDrawerOptions(
-			bool useDefaultHeader,
-			bool useDefaultElement,
-			bool useDefaultBackground)
+			bool useReadyMadeHeader,
+			bool useReadyMadeElement = true,
+			bool useReadyMadeBackground = true)
 		{
-			UseReadyMadeHeader = useDefaultHeader;
-			UseReadyMadeElement = useDefaultElement;
-			UseReadyMadeBackground = useDefaultBackground;
+			UseReadyMadeHeader = useReadyMadeHeader;
+			UseReadyMadeElement = useReadyMadeElement;
+			UseReadyMadeBackground = useReadyMadeBackground;
 		}
 
 		/// <summary>

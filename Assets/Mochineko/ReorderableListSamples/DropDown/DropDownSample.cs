@@ -24,6 +24,7 @@ namespace Mochineko.ReorderableList.Samples
 			[SerializeField]
 			private string name;
 			[SerializeField]
+			[ReadOnlyField]
 			private string bloodType;
 
 			public Human(string bloodType)

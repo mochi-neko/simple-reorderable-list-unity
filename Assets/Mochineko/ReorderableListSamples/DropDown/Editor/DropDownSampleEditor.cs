@@ -17,7 +17,8 @@ namespace Mochineko.ReorderableList.Samples.Editor
 				component = target as DropDownSample;
 
 			layouter = new ReorderableListLayouter(
-				serializedObject.FindProperty("humans")
+				serializedObject.FindProperty("humans"),
+				new NativeFunctionOptions(false, true, true, true)
 			);
 
 			layouter.AddDrawDropDownCallback(

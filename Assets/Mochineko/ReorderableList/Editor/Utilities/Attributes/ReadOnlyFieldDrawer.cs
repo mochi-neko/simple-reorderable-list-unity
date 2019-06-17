@@ -5,6 +5,9 @@ using UnityEditor;
 
 namespace Mochineko.ReorderableList
 {
+	/// <summary>
+	/// A property drawer for <see cref="ReadOnlyFieldAttribute"/>.
+	/// </summary>
 	[CustomPropertyDrawer(typeof(ReadOnlyFieldAttribute))]
 	public class ReadOnlyFieldDrawer : PropertyDrawer
 	{

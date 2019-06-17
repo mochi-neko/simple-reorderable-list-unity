@@ -7,6 +7,7 @@ namespace Mochineko.ReorderableList.Samples
 	public class FullyFixedSample : MonoBehaviour
 	{
 		[SerializeField]
+		[ReadOnlyField]
 		private string[] texts = new string[]
 		{
 			"A",

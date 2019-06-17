@@ -304,17 +304,14 @@ namespace Mochineko.ReorderableList
 			if (property == null)
 				return;
 
-			// avoid grip marker
-			if (property.HasMultiPropertiesWithNoGeneric())
-			{
-				rect.x += ReorderableListLayoutUtility.gripMarkerWidth;
-				rect.width -= ReorderableListLayoutUtility.gripMarkerWidth;
-			}
+			// adjust horizontal position with foldout marker
+			if (ReorderableListLayoutUtility.HasFoldout(property))
+				rect = ReorderableListLayoutUtility.FoldoutSildedRect(rect);
 
-			// adjust center position
-			rect.y += ReorderableListLayoutUtility.singleHeightMargin * 2f;
+			// adjust vertical center position with margin
+			rect.y += ReorderableListLayoutUtility.singleHeightMargin;
 
-			// Draw
+			// draw
 			EditorGUI.PropertyField(rect, property, true);
 		}
 
@@ -324,7 +321,8 @@ namespace Mochineko.ReorderableList
 		/// <param name="index"></param>
 		/// <returns></returns>
 		protected virtual float ElementHeight(int index)
-			=> ElementPropertyAt(index).Height();
+			=> EditorGUI.GetPropertyHeight(ElementPropertyAt(index))
+				+ ReorderableListLayoutUtility.singleHeightMargin * 2f; // top and bottom margin
 
 		#endregion
 
@@ -376,7 +374,10 @@ namespace Mochineko.ReorderableList
 		/// <param name="rect"></param>
 		protected virtual void DrawActiveColor(Rect rect)
 		{
-			ReorderableListLayoutUtility.DrawElementBackgroundColor(rect, EditorColorUtility.ActiveColor);
+			ReorderableListLayoutUtility.DrawElementBackgroundColor(
+				rect,
+				EditorColorUtility.ActiveColor
+			);
 		}
 
 		/// <summary>
@@ -385,7 +386,10 @@ namespace Mochineko.ReorderableList
 		/// <param name="rect"></param>
 		protected virtual void DrawDifferentBackgroundColor(Rect rect)
 		{
-			ReorderableListLayoutUtility.DrawElementBackgroundColor(rect, EditorColorUtility.DifferentBackgroundColor);
+			ReorderableListLayoutUtility.DrawElementBackgroundColor(
+				rect,
+				EditorColorUtility.DifferentBackgroundColor
+			);
 		}
 
 		#endregion
