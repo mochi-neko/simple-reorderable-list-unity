@@ -6,3 +6,6 @@ Supplies an simple tool to use serialized reorderable list for Unity Editor.
 - Supplies readable color drawer of element background.
 - Supplies drop down menu of element adding.
 - Allows extension for native `UnityEditorInternal.ReorderableList`
+
+# Lisence
+Its lisence is MIT.
