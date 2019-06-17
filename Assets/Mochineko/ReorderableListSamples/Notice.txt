@@ -1,0 +1,2 @@
+This folder is a sample of Reorderable List.
+If you do not need this, you can remove only this safely.
