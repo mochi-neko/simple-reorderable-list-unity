@@ -8,7 +8,7 @@ namespace Mochineko.SimpleReorderableList
 	/// <summary>
 	/// Supplies an easily usable reorderable list on editor.
 	/// </summary>
-	public class ReorderableListLayouter
+	public class ReorderableList
 	{
 		/// <summary>
 		/// Native reorderable list.
@@ -16,9 +16,9 @@ namespace Mochineko.SimpleReorderableList
 		public UnityEditorInternal.ReorderableList Native { get; protected set; }
 
 		/// <summary>
-		/// Uses fold out or not.
+		/// Uses foldout or not.
 		/// </summary>
-		protected bool UseFoldOut { get; set; } = true;
+		protected bool UseFoldout { get; set; } = true;
 
 		#region Serialized Property
 
@@ -58,22 +58,22 @@ namespace Mochineko.SimpleReorderableList
 
 		#endregion
 
-		#region Constructor
+		#region Set Up
 
 		/// <summary>
 		/// Easy constructor. 
 		/// </summary>
 		/// <param name="sourceProperty"></param>
-		/// <param name="useFoldOut"></param>
-		public ReorderableListLayouter(
+		/// <param name="useFoldout"></param>
+		public ReorderableList(
 			SerializedProperty sourceProperty,
-			bool useFoldOut = true)
+			bool useFoldout = true)
 		{
 			if (sourceProperty == null)
 				throw new System.ArgumentNullException("listProperty");
 
 			this.SourceProperty = sourceProperty;
-			this.UseFoldOut = useFoldOut;
+			this.UseFoldout = useFoldout;
 
 			InitializeNative(sourceProperty);
 
@@ -86,17 +86,17 @@ namespace Mochineko.SimpleReorderableList
 		/// <param name="sourceProperty">The source list property</param>
 		/// <param name="nativeOptions">Native options of reorderable list about functions.</param>
 		/// <param name="drawerOptions">Drawer options which are ready made.</param>
-		public ReorderableListLayouter(
+		public ReorderableList(
 			SerializedProperty sourceProperty,
 			NativeFunctionOptions nativeOptions,
 			ReadyMadeDrawerOptions drawerOptions,
-			bool useFoldOut = true)
+			bool useFoldout = true)
 		{
 			if (sourceProperty == null)
 				throw new System.ArgumentNullException("listProperty");
 
 			this.SourceProperty = sourceProperty;
-			this.UseFoldOut = useFoldOut;
+			this.UseFoldout = useFoldout;
 
 			InitializeNative(sourceProperty, nativeOptions);
 
@@ -108,17 +108,17 @@ namespace Mochineko.SimpleReorderableList
 		/// </summary>
 		/// <param name="sourceProperty"></param>
 		/// <param name="nativeOptions"></param>
-		/// <param name="useFoldOut"></param>
-		public ReorderableListLayouter(
+		/// <param name="useFoldout"></param>
+		public ReorderableList(
 			SerializedProperty sourceProperty,
 			NativeFunctionOptions nativeOptions,
-			bool useFoldOut = true)
+			bool useFoldout = true)
 		{
 			if (sourceProperty == null)
 				throw new System.ArgumentNullException("listProperty");
 
 			this.SourceProperty = sourceProperty;
-			this.UseFoldOut = useFoldOut;
+			this.UseFoldout = useFoldout;
 
 			InitializeNative(sourceProperty, nativeOptions);
 
@@ -129,17 +129,17 @@ namespace Mochineko.SimpleReorderableList
 		/// </summary>
 		/// <param name="sourceProperty"></param>
 		/// <param name="drawerOptions"></param>
-		/// <param name="useFoldOut"></param>
-		public ReorderableListLayouter(
+		/// <param name="useFoldout"></param>
+		public ReorderableList(
 			SerializedProperty sourceProperty,
 			ReadyMadeDrawerOptions drawerOptions,
-			bool useFoldOut = true)
+			bool useFoldout = true)
 		{
 			if (sourceProperty == null)
 				throw new System.ArgumentNullException("listProperty");
 
 			this.SourceProperty = sourceProperty;
-			this.UseFoldOut = useFoldOut;
+			this.UseFoldout = useFoldout;
 
 			InitializeNative(sourceProperty);
 
@@ -205,7 +205,7 @@ namespace Mochineko.SimpleReorderableList
 			if (Native == null)
 				return;
 
-			if (!UseFoldOut)
+			if (!UseFoldout)
 				Native.DoLayoutList();
 			else
 				LayoutWithFoldOut();
@@ -304,15 +304,11 @@ namespace Mochineko.SimpleReorderableList
 			if (property == null)
 				return;
 
-			// adjust horizontal position with foldout marker
-			if (ReorderableListLayoutUtility.HasFoldout(property))
-				rect = ReorderableListLayoutUtility.FoldoutSildedRect(rect);
-
-			// adjust vertical center position with margin
-			rect.y += ReorderableListLayoutUtility.singleHeightMargin;
-
-			// draw
-			EditorGUI.PropertyField(rect, property, true);
+			EditorGUI.PropertyField(
+				LayoutUtility.AdjustedRect(rect, property),
+				property,
+				true
+			);
 		}
 
 		/// <summary>
@@ -321,8 +317,7 @@ namespace Mochineko.SimpleReorderableList
 		/// <param name="index"></param>
 		/// <returns></returns>
 		protected virtual float ElementHeight(int index)
-			=> EditorGUI.GetPropertyHeight(ElementPropertyAt(index))
-				+ ReorderableListLayoutUtility.singleHeightMargin * 2f; // top and bottom margin
+			=> LayoutUtility.ElementHeight(ElementPropertyAt(index));
 
 		#endregion
 
@@ -374,7 +369,7 @@ namespace Mochineko.SimpleReorderableList
 		/// <param name="rect"></param>
 		protected virtual void DrawActiveColor(Rect rect)
 		{
-			ReorderableListLayoutUtility.DrawElementBackgroundColor(
+			BackgroundUtility.DrawElementBackgroundColor(
 				rect,
 				EditorColorUtility.ActiveColor
 			);
@@ -386,7 +381,7 @@ namespace Mochineko.SimpleReorderableList
 		/// <param name="rect"></param>
 		protected virtual void DrawDifferentBackgroundColor(Rect rect)
 		{
-			ReorderableListLayoutUtility.DrawElementBackgroundColor(
+			BackgroundUtility.DrawElementBackgroundColor(
 				rect,
 				EditorColorUtility.DifferentBackgroundColor
 			);

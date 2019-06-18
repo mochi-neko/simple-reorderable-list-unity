@@ -8,11 +8,11 @@ namespace Mochineko.SimpleReorderableList.Samples.Editor
 	[CustomEditor(typeof(NestedMultiPropertySample))]
 	public class NestedMultiPropertySampleEditor : UnityEditor.Editor
 	{
-		private ReorderableListLayouter layouter;
+		private ReorderableList layouter;
 
 		private void OnEnable()
 		{
-			layouter = new ReorderableListLayouter(
+			layouter = new ReorderableList(
 				serializedObject.FindProperty("list")
 			);
 		}

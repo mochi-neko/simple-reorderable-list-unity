@@ -8,7 +8,7 @@ namespace Mochineko.SimpleReorderableList.Samples.Editor
 	[CustomEditor(typeof(DropDownSample))]
 	public class DropDownSampleEditor : UnityEditor.Editor
 	{
-		private ReorderableListLayouter layouter;
+		private ReorderableList layouter;
 		private DropDownSample component;
 
 		private void OnEnable()
@@ -16,7 +16,7 @@ namespace Mochineko.SimpleReorderableList.Samples.Editor
 			if (component == null)
 				component = target as DropDownSample;
 
-			layouter = new ReorderableListLayouter(
+			layouter = new ReorderableList(
 				serializedObject.FindProperty("humans"),
 				new NativeFunctionOptions(false)
 			);

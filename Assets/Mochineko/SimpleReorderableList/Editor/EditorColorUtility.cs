@@ -6,7 +6,7 @@ using UnityEditor;
 namespace Mochineko.SimpleReorderableList
 {
 	/// <summary>
-	/// Supplies editor color utilities.
+	/// Supplies color utilities on Unity editor.
 	/// </summary>
 	public static class EditorColorUtility
 	{

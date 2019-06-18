@@ -622,10 +622,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   texts:
-  - A
   - B
   - C
   - E
+  - F
+  - A
+  - G
+  - H
+  - I
 --- !u!4 &1949796063
 Transform:
   m_ObjectHideFlags: 0

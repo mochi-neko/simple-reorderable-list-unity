@@ -8,11 +8,11 @@ namespace Mochineko.SimpleReorderableList.Samples.Editor
 	[CustomEditor(typeof(FixedElementCountSample))]
 	public class FixedElementCountSampleEditor : UnityEditor.Editor
 	{
-		private ReorderableListLayouter layouter;
+		private ReorderableList layouter;
 
 		private void OnEnable()
 		{
-			layouter = new ReorderableListLayouter(
+			layouter = new ReorderableList(
 				serializedObject.FindProperty("texts"),
 				new NativeFunctionOptions(true, true, false, false)
 			);
