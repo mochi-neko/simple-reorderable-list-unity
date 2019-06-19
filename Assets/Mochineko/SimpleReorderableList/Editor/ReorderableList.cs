@@ -369,10 +369,7 @@ namespace Mochineko.SimpleReorderableList
 		/// <param name="rect"></param>
 		protected virtual void DrawActiveColor(Rect rect)
 		{
-			BackgroundUtility.DrawElementBackgroundColor(
-				rect,
-				EditorColorUtility.ActiveColor
-			);
+			BackgroundUtility.DrawElementBackgroundColorActive(rect);
 		}
 
 		/// <summary>
@@ -381,10 +378,7 @@ namespace Mochineko.SimpleReorderableList
 		/// <param name="rect"></param>
 		protected virtual void DrawDifferentBackgroundColor(Rect rect)
 		{
-			BackgroundUtility.DrawElementBackgroundColor(
-				rect,
-				EditorColorUtility.DifferentBackgroundColor
-			);
+			BackgroundUtility.DrawElementBackgroundColorDifferent(rect);
 		}
 
 		#endregion
