@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
 namespace Mochineko.SimpleReorderableList
@@ -10,6 +8,9 @@ namespace Mochineko.SimpleReorderableList
 	/// </summary>
 	public class ReorderableList
 	{
+
+		#region Settings
+
 		/// <summary>
 		/// Native reorderable list.
 		/// </summary>
@@ -19,6 +20,8 @@ namespace Mochineko.SimpleReorderableList
 		/// Uses foldout or not.
 		/// </summary>
 		protected bool UseFoldout { get; set; } = true;
+
+		#endregion
 
 		#region Serialized Property
 

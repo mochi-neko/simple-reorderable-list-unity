@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 
 namespace Mochineko.SimpleReorderableList
 {
 	/// <summary>
 	/// Holds options which judge to use ready made drawers. 
 	/// </summary>
-	public struct ReadyMadeDrawerOptions
+	public struct ReadyMadeDrawerOptions : IEquatable<ReadyMadeDrawerOptions>
 	{
 		/// <summary>
 		/// Uses the ready made header drawer or not.
@@ -41,5 +40,29 @@ namespace Mochineko.SimpleReorderableList
 				UseReadyMadeElement = true,
 				UseReadyMadeBackground = true
 			};
+
+
+		bool IEquatable<ReadyMadeDrawerOptions>.Equals(ReadyMadeDrawerOptions other)
+		{
+			if (this.UseReadyMadeHeader != other.UseReadyMadeHeader)
+				return false;
+			if (this.UseReadyMadeElement != other.UseReadyMadeElement)
+				return false;
+			if (this.UseReadyMadeBackground != other.UseReadyMadeBackground)
+				return false;
+
+			return true;
+		}
+
+		public override int GetHashCode()
+		{
+			var hashCode = -360803941;
+
+			hashCode = hashCode * -1521134295 + UseReadyMadeHeader.GetHashCode();
+			hashCode = hashCode * -1521134295 + UseReadyMadeElement.GetHashCode();
+			hashCode = hashCode * -1521134295 + UseReadyMadeBackground.GetHashCode();
+
+			return hashCode;
+		}
 	}
 }
