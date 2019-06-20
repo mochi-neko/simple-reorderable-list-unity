@@ -10,15 +10,15 @@ namespace Mochineko.SimpleReorderableList
 		/// <summary>
 		/// Uses the ready made header drawer or not.
 		/// </summary>
-		public bool UseReadyMadeHeader { get; private set; }
+		public bool UseReadyMadeHeader { get; }
 		/// <summary>
 		/// Uses the ready made element drawer or not.
 		/// </summary>
-		public bool UseReadyMadeElement { get; private set; }
+		public bool UseReadyMadeElement { get; }
 		/// <summary>
 		/// Uses the ready made element background drawer or not.
 		/// </summary>
-		public bool UseReadyMadeBackground { get; private set; }
+		public bool UseReadyMadeBackground { get; }
 
 		public ReadyMadeDrawerOptions(
 			bool useReadyMadeHeader,
@@ -34,12 +34,11 @@ namespace Mochineko.SimpleReorderableList
 		/// Supplies default options.
 		/// </summary>
 		public static ReadyMadeDrawerOptions Default
-			=> new ReadyMadeDrawerOptions
-			{
-				UseReadyMadeHeader = true,
-				UseReadyMadeElement = true,
-				UseReadyMadeBackground = true
-			};
+			=> new ReadyMadeDrawerOptions(
+				useReadyMadeHeader: true,
+				useReadyMadeElement: true,
+				useReadyMadeBackground: true
+			);
 
 
 		bool IEquatable<ReadyMadeDrawerOptions>.Equals(ReadyMadeDrawerOptions other)

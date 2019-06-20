@@ -10,19 +10,19 @@ namespace Mochineko.SimpleReorderableList
 		/// <summary>
 		/// Element can be dragged or not.
 		/// </summary>
-		public bool Draggable { get; private set; }
+		public bool Draggable { get; }
 		/// <summary>
 		/// Displays text in header or not.
 		/// </summary>
-		public bool DisplayHeader { get; private set; }
+		public bool DisplayHeader { get; }
 		/// <summary>
 		/// Displays add (+) button or not.
 		/// </summary>
-		public bool DisplayAddButton { get; private set; }
+		public bool DisplayAddButton { get; }
 		/// <summary>
 		/// Displays remove (-) button or not.
 		/// </summary>
-		public bool DisplayRemoveButton { get; private set; }
+		public bool DisplayRemoveButton { get; }
 
 		public NativeFunctionOptions(
 			bool draggable,
@@ -40,13 +40,12 @@ namespace Mochineko.SimpleReorderableList
 		/// Supplies defalut options.
 		/// </summary>
 		public static NativeFunctionOptions Default
-			=> new NativeFunctionOptions
-			{
-				Draggable = true,
-				DisplayHeader = true,
-				DisplayAddButton = true,
-				DisplayRemoveButton = true
-			};
+			=> new NativeFunctionOptions(
+				draggable: true,
+				displayHeader: true,
+				displayAddButton: true,
+				displayRemoveButton: true
+			);
 
 
 		bool IEquatable<NativeFunctionOptions>.Equals(NativeFunctionOptions other)
