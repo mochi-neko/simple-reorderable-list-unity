@@ -8,7 +8,7 @@ namespace Mochineko.SimpleReorderableList.Samples.Editor
 	[CustomEditor(typeof(DropDownSample))]
 	public class DropDownSampleEditor : UnityEditor.Editor
 	{
-		private ReorderableList layouter;
+		private ReorderableList reorderableList;
 		private DropDownSample component;
 
 		private void OnEnable()
@@ -16,12 +16,16 @@ namespace Mochineko.SimpleReorderableList.Samples.Editor
 			if (component == null)
 				component = target as DropDownSample;
 
-			layouter = new ReorderableList(
+			reorderableList = new ReorderableList(
 				serializedObject.FindProperty("humans"),
-				new NativeFunctionOptions(false)
+				new NativeFunctionOptions(
+					draggable: false,
+					displayHeader: true,
+					displayAddButton: true,
+					displayRemoveButton: true)
 			);
 
-			layouter.AddDrawDropDownCallback(
+			reorderableList.AddDrawDropDownCallback(
 				DropDownSample.bloodTypeCanditates, 
 				(selected) => component.Humans.Add(new DropDownSample.Human(selected))
 			);
@@ -35,8 +39,8 @@ namespace Mochineko.SimpleReorderableList.Samples.Editor
 			{
 				EditorFieldUtility.ReadOnlyComponentField(target as MonoBehaviour, this);
 
-				if (layouter != null)
-					layouter.Layout();
+				if (reorderableList != null)
+					reorderableList.Layout();
 			}
 			if (EditorGUI.EndChangeCheck())
 			{

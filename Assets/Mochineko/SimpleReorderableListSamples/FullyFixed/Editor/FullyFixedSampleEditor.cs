@@ -8,13 +8,17 @@ namespace Mochineko.SimpleReorderableList.Samples.Editor
 	[CustomEditor(typeof(FullyFixedSample))]
 	public class FullyFixedSampleEditor : UnityEditor.Editor
 	{
-		private ReorderableList layouter;
+		private ReorderableList reorderableList;
 
 		private void OnEnable()
 		{
-			layouter = new ReorderableList(
+			reorderableList = new ReorderableList(
 				serializedObject.FindProperty("texts"),
-				new NativeFunctionOptions(false, true, false, false)
+				new NativeFunctionOptions(
+					draggable: false,
+					displayHeader: true,
+					displayAddButton: false,
+					displayRemoveButton: false)
 			);
 		}
 
@@ -26,8 +30,8 @@ namespace Mochineko.SimpleReorderableList.Samples.Editor
 			{
 				EditorFieldUtility.ReadOnlyComponentField(target as MonoBehaviour, this);
 
-				if (layouter != null)
-					layouter.Layout();
+				if (reorderableList != null)
+					reorderableList.Layout();
 			}
 			if (EditorGUI.EndChangeCheck())
 			{
