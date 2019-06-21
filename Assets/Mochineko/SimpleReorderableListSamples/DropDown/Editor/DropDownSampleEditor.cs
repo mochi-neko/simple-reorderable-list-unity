@@ -18,11 +18,7 @@ namespace Mochineko.SimpleReorderableList.Samples.Editor
 
 			reorderableList = new ReorderableList(
 				serializedObject.FindProperty("humans"),
-				new NativeFunctionOptions(
-					draggable: false,
-					displayHeader: true,
-					displayAddButton: true,
-					displayRemoveButton: true)
+				new NativeFunctionOptions()
 			);
 
 			reorderableList.AddDrawDropDownCallback(
