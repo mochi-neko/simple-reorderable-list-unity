@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Mochineko.SimpleReorderableList
+namespace Mochineko.SimpleReorderableList.Samples
 {
 	/// <summary>
 	/// An attribute to disallow edit on the Editor.
-	/// Its drawer is <see cref="ReadOnlyFieldDrawer"/>.
+	/// Its drawer is <see cref="Editor.ReadOnlyFieldDrawer"/>.
 	/// </summary>
 	public class ReadOnlyFieldAttribute : PropertyAttribute
 	{

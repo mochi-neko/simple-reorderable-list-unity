@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace Mochineko.SimpleReorderableList
+namespace Mochineko.SimpleReorderableList.Samples.Editor
 {
 	/// <summary>
 	/// Supplies editor field utilities.
