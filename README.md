@@ -1,5 +1,5 @@
 # simple-reorderable-list-unity
-Supplies an simple tool to use serialized reorderable list on UnityEditor GUI.
+Supplies an simple tool to use reorderable list on UnityEditor GUI.
 
 # Features
 - Supplies natural operations of a list on GUI.
