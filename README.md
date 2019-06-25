@@ -1,12 +1,12 @@
 # simple-reorderable-list-unity
-Supplies an simple tool to use reorderable list on UnityEditor GUI.
+Supplies a simple tool to use reorderable list on UnityEditor GUI.
 
 # Features
 - Supplies natural operations of a list on GUI.
-- Supports generic list of serialized properties.
-- Supplies readable color drawer of element background.
-- Supplies drop down menu of element adding.
-- Allows extension for native `UnityEditorInternal.ReorderableList`
+- Supports generic list and array of serialized properties.
+- Supplies readable colored element background.
+- Supplies drop down menu to add an element.
+- Allows extension to native `UnityEditorInternal.ReorderableList`
 
 # Introduction
 Please download the latest .unitypackage from Release page. 
