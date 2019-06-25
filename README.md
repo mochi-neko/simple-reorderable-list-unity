@@ -13,4 +13,5 @@ Supplies a simple tool to use **reorderable list** on UnityEditor GUI.
 
 # Introduction
 Please download the latest **.unitypackage** from Release page. 
+
 Then import it to your Unity project.
