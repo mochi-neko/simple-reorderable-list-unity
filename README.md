@@ -9,13 +9,13 @@ Supplies a simple tool to use **reorderable list** on UnityEditor GUI.
 - Allows extension to native `UnityEditorInternal.ReorderableList`
 
 # Samples
-![Order](wiki/Images/OrderElement.gif)
+![Order](https://github.com/mochi-neko/simple-reorderable-list-unity.wiki/master/Images/OrderElement.gif)
 
-![AddRemove](wiki/Images/AddRemoveElement.gif)
+![AddRemove](https://github.com/mochi-neko/simple-reorderable-list-unity.wiki/master/Images/AddRemoveElement.gif)
 
-![Multi](wiki/Images/MultiProperties.gif)
+![Multi](https://github.com/mochi-neko/simple-reorderable-list-unity.wiki/master/Images/MultiProperties.gif)
 
-![DropDown](wiki/Images/DropDown.gif)
+![DropDown](https://github.com/mochi-neko/simple-reorderable-list-unity.wiki/master/Images/DropDown.gif)
 
 # Introduction
 Please download the latest **.unitypackage** from Release page. 
