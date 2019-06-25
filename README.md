@@ -8,5 +8,9 @@ Supplies a simple tool to use **reorderable list** on UnityEditor GUI.
 - Supplies drop down menu to add an element.
 - Allows extension to native `UnityEditorInternal.ReorderableList`
 
+# Samples
+
+
 # Introduction
 Please download the latest **.unitypackage** from Release page. 
+Then import it to your Unity project.
