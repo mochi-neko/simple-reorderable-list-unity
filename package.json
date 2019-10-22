@@ -1,0 +1,21 @@
+{
+    "name": "net.mochineko.simplereorderablelist",
+    "displayName": "SimpleReorderableList",
+    "version": "1.0.1",
+    "unity": "2019.1",
+    "author": "mochineko",
+    "description": "Supplies a simple tool to use reorderable list on UnityEditor GUI.",
+    "dependencies": {},
+    "keyword": [
+        "editor",
+        "list",
+        "reorderable"
+    ],
+    "samples": [
+        {
+            "displayName": "Examples",
+            "description": "Example of use.",
+            "path": "Samples~"
+        }
+    ]
+}
